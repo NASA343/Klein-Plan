@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klein Plan Official Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        /* 导航栏 */
+        nav {
+            background-color: #0a58ca;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #cce7ff;
+        }
+        /* 汉堡菜单按钮 - 移动端显示 */
+        .hamburger {
+            display: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        /* 通用容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+        /* 首页横幅 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to right, #0a58ca, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 60px;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: white;
+            color: #0a58ca;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #cce7ff;
+            transform: translateY(-3px);
+        }
+        /* 通用区块样式 */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #0a58ca;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background-color: #3b82f6;
+            display: block;
+            margin: 10px auto 0;
+        }
+        /* 关于我们 */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        /* 工作环境 - 原成长历程样式改造 */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .work-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .work-card:hover {
+            transform: translateY(-8px);
+        }
+        .work-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .work-info {
+            padding: 20px;
+        }
+        .work-info h3 {
+            color: #0a58ca;
+            margin-bottom: 10px;
+        }
+        /* 赞助商页面样式 - 适配官网风格 */
+        .sponsor-section {
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .sponsor-subtitle {
+            font-size: 1.5rem;
+            color: #0a58ca;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .sponsor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        .sponsor-item {
+            padding: 15px 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            font-weight: 500;
+        }
+        .sponsor-item:hover {
+            transform: translateY(-5px);
+            color: #0a58ca;
+        }
+        /* 招贤纳士专属样式 - 适配官网风格 */
+        .careers-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .careers-content h3 {
+            color: #0a58ca;
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .careers-content p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+        /* 9周年专属样式 - 完全适配官网风格 */
+        .anniversary-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+        .anniversary-quote {
+            border-left: 3px solid #3b82f6;
+            padding-left: 1.2rem;
+            margin: 2.2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+        .anniversary-signature {
+            text-align: right;
+            margin-top: 3.5rem;
+            font-size: 1.1rem;
+        }
+        .anniversary-name {
+            font-size: 2.2rem;
+            color: #0a58ca;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+        /* 联系方式 */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            margin: 30px 0;
+            font-size: 1.1rem;
+        }
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        /* 页脚 */
+        footer {
+            background-color: #0a58ca;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        /* 🌟 团队板块弹出层样式 🌟 */
+        .team-modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .team-modal {
+            background: #fff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .team-modal-close {
+            position: sticky;
+            top: 10px;
+            left: calc(100% - 40px);
+            font-size: 2rem;
+            color: #0a58ca;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .team-modal-close:hover {
+            background: #e6f0ff;
+            transform: rotate(90deg);
+        }
+        .team-modal-title {
+            font-size: 2rem;
+            color: #0a58ca;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .team-modal-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e6f0ff;
+        }
+        /* 我们的家 */
+        .team-home {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .team-home h3 {
+            font-size: 1.5rem;
+            color: #0a58ca;
+            margin-bottom: 15px;
+        }
+        .team-home-address {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.1rem;
+        }
+        .team-home-address span {
+            padding: 8px 20px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        /* 团队核心理念 */
+        .team-ethos {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .team-ethos h3 {
+            font-size: 1.5rem;
+            color: #0a58ca;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .team-ethos p {
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .team-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .team-value-item {
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .team-value-item h4 {
+            color: #0a58ca;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        /* 董事会 & 团队成员通用 - 移除头像后优化内边距 */
+        .team-board, .team-staff {
+            margin-bottom: 40px;
+        }
+        .team-board h3, .team-staff h3 {
+            font-size: 1.5rem;
+            color: #0a58ca;
+            margin-bottom: 25px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .team-member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .team-member-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .team-member-card:hover {
+            transform: translateY(-5px);
+        }
+        .team-member-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .team-member-name en {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .team-member-national {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .team-member-pos {
+            color: #0a58ca;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        /* 赛车运动团队 */
+        .team-motorsport {
+            padding-top: 20px;
+            border-top: 2px solid #e6f0ff;
+        }
+        .team-motorsport h3 {
+            font-size: 1.5rem;
+            color: #0a58ca;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .team-motorsport-desc {
+            text-align: center;
+            padding: 30px;
+            color: #333;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #0a58ca;
+                padding: 1rem 5%;
+                box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                margin-left: 0;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .sponsor-section {
+                padding: 20px;
+            }
+            .sponsor-subtitle {
+                font-size: 1.3rem;
+            }
+            .sponsor-list {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            .sponsor-item {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            .careers-content h3 {
+                font-size: 1.3rem;
+            }
+            .careers-content, .anniversary-content {
+                font-size: 1rem;
+            }
+            .work-img {
+                height: 180px;
+            }
+            .anniversary-name {
+                font-size: 1.8rem;
+            }
+            footer {
+                font-size: 0.8rem;
+                padding: 25px 5%;
+            }
+            /* 移动端团队弹出层适配 */
+            .team-modal {
+                padding: 20px;
+            }
+            .team-modal-title {
+                font-size: 1.6rem;
+            }
+            .team-ethos, .team-home {
+                padding: 20px;
+            }
+            .team-home-address {
+                gap: 10px;
+            }
+            .team-home-address span {
+                padding: 6px 15px;
+                font-size: 1rem;
+            }
+            .team-member-card {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Klein Plan 官方网站</a>
+            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">☰</div>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于我们</a>
+                <a href="#works">工作环境</a>
+                <a href="#sponsor">赞助商</a>
+                <a href="#careers">招贤纳士</a>
+                <a href="#anniversary">9周年</a>
+                <a href="#contact">联系我们</a>
+                <a href="javascript:;" onclick="showTeamModal()">我们的团队</a>
+            </div>
+        </div>
+    </nav>
+    <!-- 首页横幅 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Klein Plan Official Website</h1>
+            <p>简约而不简单，专注品质展示与品牌塑造</p>
+            <a href="#about" class="btn">了解更多</a>
+        </div>
+    </section>
+    <!-- 关于我们 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>这里是Klein Plan官方站点，由YU YUEKUI创立打造，秉持简约、专业、清晰的设计理念，呈现核心价值与成果展示。</p>
+                    <br>
+                    <p>致力于用简洁的视觉语言传递专业态度，每一处设计与内容呈现，都围绕品质与实用性展开，打造专属窗口。克莱因计划提供支持的平台和工具，以提供满足客户不断变化的创新解决方案。我们致力于以负责任的方式广泛提供赞助与服务，其愿景是让每个人都能获得成就与尊重。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 工作环境 -->
+    <section id="works" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">工作环境</h2>
+            <div class="works-grid">
+                <div class="work-card">
+                    <img src="work1.jpg" alt="二层公共区" class="work-img">
+                    <div class="work-info">
+                        <h3>二层公共区</h3>
+                        <p>通透采光的共享区域，适配团队协作与轻量会议</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="work2.jpg" alt="餐饮休闲区" class="work-img">
+                    <div class="work-info">
+                        <h3>餐饮休闲区</h3>
+                        <p>舒适的用餐休憩空间，缓解工作疲劳提升幸福感</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="work3.jpg" alt="大型会议室" class="work-img">
+                    <div class="work-info">
+                        <h3>大型会议室</h3>
+                        <p>专业级会议空间，配备高清屏与智能办公设备</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="work4.jpg" alt="会议室区" class="work-img">
+                    <div class="work-info">
+                        <h3>会议室区</h3>
+                        <p>模块化会议室，满足不同规模的商务洽谈需求</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="work5.jpg" alt="开放楼梯与休闲区" class="work-img">
+                    <div class="work-info">
+                        <h3>开放楼梯与休闲区</h3>
+                        <p>木质结构明亮色彩，激发创意的开放式交流空间</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="work6.jpg" alt="个人工位区" class="work-img">
+                    <div class="work-info">
+                        <h3>个人工位区</h3>
+                        <p>高效专注办公工位，搭配专业设备与舒适座椅</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 赞助商 -->
+    <section id="sponsor">
+        <div class="container">
+            <h2 class="section-title">官方赞助商</h2>
+            <div class="sponsor-section">
+                <h3 class="sponsor-subtitle">冠名赞助商</h3>
+                <div class="sponsor-list">
+                    <div class="sponsor-item">阿迪达斯</div>
+                    <div class="sponsor-item">马来西亚石油</div>
+                    <div class="sponsor-item">梅赛德斯-奔驰</div>
+                    <div class="sponsor-item">微软</div>
+                </div>
+            </div>
+            <div class="sponsor-section">
+                <h3 class="sponsor-subtitle">中国赞助商</h3>
+                <div class="sponsor-list">
+                    <div class="sponsor-item">库洛游戏</div>
+                    <div class="sponsor-item">悠星</div>
+                    <div class="sponsor-item">小米</div>
+                    <div class="sponsor-item">七彩虹</div>
+                    <div class="sponsor-item">影驰</div>
+                    <div class="sponsor-item">安踏</div>
+                    <div class="sponsor-item">回力</div>
+                    <div class="sponsor-item">联想</div>
+                    <div class="sponsor-item">领克</div>
+                    <div class="sponsor-item">影视飓风</div>
+                    <div class="sponsor-item">青岛啤酒</div>
+                    <div class="sponsor-item">网易云音乐</div>
+                    <div class="sponsor-item">360</div>
+                    <div class="sponsor-item">ROG</div>
+                    <div class="sponsor-item">高德地图</div>
+                </div>
+            </div>
+            <div class="sponsor-section">
+                <h3 class="sponsor-subtitle">技术供应商</h3>
+                <div class="sponsor-list">
+                    <div class="sponsor-item">松浦</div>
+                    <div class="sponsor-item">米克朗</div>
+                    <div class="sponsor-item">三井精机</div>
+                    <div class="sponsor-item">山崎马扎克</div>
+                    <div class="sponsor-item">兹默曼</div>
+                    <div class="sponsor-item">阿奇夏米尔</div>
+                    <div class="sponsor-item">微软</div>
+                    <div class="sponsor-item">索尼</div>
+                    <div class="sponsor-item">小米</div>
+                    <div class="sponsor-item">倍耐力</div>
+                    <div class="sponsor-item">梅赛德斯-奔驰</div>
+                    <div class="sponsor-item">三星</div>
+                    <div class="sponsor-item">AMD</div>
+                    <div class="sponsor-item">骁龙</div>
+                </div>
+            </div>
+            <div class="sponsor-section">
+                <h3 class="sponsor-subtitle">国际赞助商</h3>
+                <div class="sponsor-list">
+                    <div class="sponsor-item">微软</div>
+                    <div class="sponsor-item">索尼</div>
+                    <div class="sponsor-item">XBOX</div>
+                    <div class="sponsor-item">PlayStation</div>
+                    <div class="sponsor-item">乐高</div>
+                    <div class="sponsor-item">奥迪</div>
+                    <div class="sponsor-item">三星</div>
+                    <div class="sponsor-item">万代南梦宫</div>
+                    <div class="sponsor-item">动视</div>
+                    <div class="sponsor-item">宝马</div>
+                    <div class="sponsor-item">科乐美</div>
+                    <div class="sponsor-item">倍世</div>
+                    <div class="sponsor-item">可口可乐</div>
+                    <div class="sponsor-item">路易威登</div>
+                    <div class="sponsor-item">帕加尼</div>
+                    <div class="sponsor-item">莲花</div>
+                    <div class="sponsor-item">布加迪</div>
+                    <div class="sponsor-item">梅赛德斯-奔驰</div>
+                    <div class="sponsor-item">阿斯顿·马丁</div>
+                    <div class="sponsor-item">艺电运动</div>
+                    <div class="sponsor-item">阿迪达斯</div>
+                    <div class="sponsor-item">万国</div>
+                    <div class="sponsor-item">保时捷</div>
+                    <div class="sponsor-item">世嘉</div>
+                    <div class="sponsor-item">英伟达</div>
+                    <div class="sponsor-item">505游戏</div>
+                    <div class="sponsor-item">雅马哈</div>
+                    <div class="sponsor-item">Crowd Strike</div>
+                    <div class="sponsor-item">英力士</div>
+                    <div class="sponsor-item">初音未来</div>
+                    <div class="sponsor-item">piapro</div>
+                    <div class="sponsor-item">骁龙</div>
+                    <div class="sponsor-item">TeamViewer</div>
+                    <div class="sponsor-item">索莱拉</div>
+                    <div class="sponsor-item">惠普企业</div>
+                    <div class="sponsor-item">瑞银</div>
+                    <div class="sponsor-item">Meta AI</div>
+                    <div class="sponsor-item">Nu</div>
+                    <div class="sponsor-item">WhatsAPP</div>
+                    <div class="sponsor-item">SAP</div>
+                    <div class="sponsor-item">G42</div>
+                    <div class="sponsor-item">Signify</div>
+                    <div class="sponsor-item">万豪邦沃</div>
+                    <div class="sponsor-item">AMD</div>
+                    <div class="sponsor-item">Einhell</div>
+                    <div class="sponsor-item">阿科迪斯</div>
+                    <div class="sponsor-item">舍温·威廉姆斯</div>
+                    <div class="sponsor-item">纳斯达克</div>
+                    <div class="sponsor-item">Endless</div>
+                    <div class="sponsor-item">倍耐力</div>
+                    <div class="sponsor-item">Mous</div>
+                    <div class="sponsor-item">三丽鸥</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 招贤纳士 -->
+    <section id="careers" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">招贤纳士</h2>
+            <div class="careers-content">
+                <h3>在克莱因计划生活</h3>
+                <p>充分享受生活</p>
+                <p>在克莱因计划，您可以承担风险、突破界限，并取得超出您想象的收益。在这段旅程中，您不会孤单。我们这里有一些特别的东西;我们以员工为中心，我们深知，我们所提供的不仅对您的工作至关重要，而且对您的生活也至关重要。除了旨在帮助您和您的家人过上美好生活外，我们还根据个人绩效为符合条件的员工提供有竞争力的薪酬、奖金和股票奖励，以及帮助您过上健康生活、投资未来并享受旅程的福利。</p>
+                
+                <h3>我们对薪酬公平的承诺</h3>
+                <p>我们致力于薪酬公平的原则 – 为员工提供基本相似的工作的公平报酬。</p>
+                
+                <h3>我们的文化</h3>
+                <p>我们从根本上认为，我们需要一种以成长型思维方式为基础的文化。它始于每个人都可以成长和发展的信念;这种潜力是培养的，而不是预先确定的;任何人都可以改变他们的心态。</p>
+                <p>我们需要不断学习和永不满足的好奇心。我们需要愿意面对不确定性，敢于冒险，并在犯错时迅速行动，认识到失败发生在掌握的道路上。我们需要对他人的想法持开放态度，这样别人的成功不会削弱我们自己的成功。</p>
+                
+                <h3>工作地点与时间</h3>
+                <p>我们实现混合工作场所灵活性的方法，这包括您工作的时间和天数。我们鼓励员工在最适合他们的地点和时间工作，并使他们能够按照期望工作。</p>
+            </div>
+        </div>
+    </section>
+    <!-- 9周年 -->
+    <section id="anniversary">
+        <div class="container">
+            <h2 class="section-title">克莱因计划 9周年</h2>
+            <div class="anniversary-content">
+                <p>9年前，在一个不起眼的房间，一个了不起的想法诞生了。GHOST Studio的创立，源自一个单纯的信念：科技应该更个人化。当时，这种想法被视为异想天开，但却真正改变了世界。</p>
+                <p>今年 7 月 1 日，克莱因计划 迎来 9 周年。回顾过去的九年，我们从未停止对新思路、新可能的探索，并将众多强大工具交到用户手中。从第一部 GHOST 电脑到 Surface，从 Surface Pro 到 Surface Laptop，再到 Surface Laptop 13、Surface Watch 和 Xbox Series X；还有陪伴日常生活的各项服务：Microsoft Store 、Android 、Microsoft Pay、AZURE 和 Windows 。在一个个创举背后，我们始终坚信：推动世界前行的力量，来自敢于追求不同想法的人。</p>
+                <p>因为进步，往往从个人起步。可能是发明家或科学家，也可能来自学生或故事创作者，他们总在寻找更好的方法、新颖的点子，或别出心裁的途径。这样的精神，从 克莱因计划 成立之初就一直引领着我们，但这并不只属于我们。</p>
+                <p>我们的每一项创新，都只是起了个头，而最精彩的篇章，正由你们亲自撰写。你们是科技真正的使用者，在工作、学习、探索和追寻梦想的过程中尽情施展。你们获得了新突破，开拓了新业务；温暖了病房中的亲友，记录了宝宝踏出的第一步；你们跑完了马拉松，写出了精彩大作，还和老友重拾情谊；你们探索了未知的新奇，找到了爱听的新歌，还分享了动人的故事，让大家心与心相连。</p>
+                <p>在你们手中，我们打造的工具得以发挥所长，将日常生活变得更美好，甚至能在紧要关头施以援手。真正激励我们的，从来不是科技本身能做什么，而是你能用科技实现什么。</p>
+                <p>在 克莱因计划，我们更注重开创未来，而不是沉浸过往。但在 9 周年这个重要的里程碑，我们想要感谢全球数以百万计的人，是你们共同造就了今天的 克莱因计划。感谢我们全球各地的优秀团队，感谢我们的开发者社区，感谢每一位陪我们一路走来的用户。你们的巧思，带给我们新的启发；你们的信任，激励我们精益求精；你们的故事提醒我们，敢于追求不同想法，才能达成更多精彩。</p>
+                <p>你们教会了我们一件事：那些看似疯狂、满脑子想要改变世界的人，真的能改变世界。</p>
+                <div class="anniversary-quote">
+                    <p>为那些疯狂的人干杯。</p>
+                    <p>不合群的人。</p>
+                    <p>叛逆的人。</p>
+                    <p>制造麻烦的人。</p>
+                    <p>残疾的人。</p>
+                    <p>那些看待事物不同的人。</p>
+                </div>
+                <div class="anniversary-signature">
+                    向各位致敬
+                    <div class="anniversary-name">YU YUEKUI</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 联系方式 -->
+    <section id="contact" style="background-color: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            <div class="contact-content">
+                <p>期待与你交流合作，可通过以下方式联系我们</p>
+                <div class="contact-info">
+                    <p>邮箱：2265736302@qq.com</p>
+                    <p>中国大陆：中国山东 中国上海 中国北京 中国重庆 香港特别行政区</p>
+                    <p>海外地区：英国伦敦 德国斯图加特 德国柏林 德国阿尔特巴赫 美国纽约 美国华盛顿 日本东京 日本北海道 韩国首尔 法国巴黎 挪威奥斯陆 意大利罗马 比利时布鲁塞尔 荷兰阿姆斯特丹</p>
+                </div>
+                <a href="mailto:contact@kleinplan.com" class="btn">发送邮件</a>
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p>© 2017-2023 GHOST studio. All Rights Reserved.</p>
+            <p>© 2025-2026 克莱因计划（中国）. All Rights Reserved.</p>
+            <p>GHOST HOER、GHOST studio、幽灵霍尔（中国）、幽灵工作室（中国）是GHOST游戏公司的注册商标，其商标及知识产权归克莱因计划公司及授权合作公司所有。</p>
+            <p>克莱因计划、克莱因计划（中国）、梅赛德斯-克莱因计划 赛车运动、克莱因法务部、克莱因计划-山东团队、克莱因计划-上海团队、克莱因计划-阿法特巴赫团队是克莱因计划公司的注册商标，其商标及知识产权归克莱因计划公司、YU YUEKUI及授权合作公司所有。</p>
+            <p>© 2024 ️阿尔塔什（中国）相关知识产权归其所有方所有。</p>
+            <p>请尊重各国法律法规与人权保护，任何违规行为将依法承担相应法律责任。</p>
+        </div>
+    </footer>
+    <!-- 团队板块弹出层 -->
+    <div class="team-modal-mask" id="teamModalMask" onclick="hideTeamModal()">
+        <div class="team-modal" onclick="event.stopPropagation()">
+            <div class="team-modal-close" onclick="hideTeamModal()">×</div>
+            <h2 class="team-modal-title">我们的团队 / Our Team</h2>
+            <p class="team-modal-subtitle">聚力向新，笃行致远 · 以专业铸就品质，以协作成就未来</p>
+            
+            <!-- 我们的家 -->
+            <div class="team-home">
+                <h3>我们的家 / Our Home</h3>
+                <div class="team-home-address">
+                    <span>中国山东 | 克莱因计划 总部</span>
+                    <span>德国阿法特巴赫 | 梅赛德斯-AMG</span>
+                </div>
+            </div>
+            <!-- 团队核心理念 -->
+            <div class="team-ethos">
+                <h3>团队核心理念 / Our Ethos</h3>
+                <p>All in Excellence。我们每日苛求极致专业，彼此成就携手前行，以技术卓越与无缝协作笃定实现目标。每位成员都被赋予实现团队愿景的力量，以最高标准践行责任，在信任的基石上，将挑战化为成长，将热爱化为成就。</p>
+                <div class="team-values">
+                    <div class="team-value-item">
+                        <h4>Passion 热忱</h4>
+                        <p>热爱所做之事，凝聚能量，共庆每一个里程碑</p>
+                    </div>
+                    <div class="team-value-item">
+                        <h4>Respect 尊重</h4>
+                        <p>深度倾听，坦诚探讨，认可每一位贡献者的价值</p>
+                    </div>
+                    <div class="team-value-item">
+                        <h4>Innovation 创新</h4>
+                        <p>拥抱新思，开拓新径，永不停歇探索最优解</p>
+                    </div>
+                    <div class="team-value-item">
+                        <h4>Determination 坚定</h4>
+                        <p>承压从容，迎难而上，坚守目标直至达成</p>
+                    </div>
+                    <div class="team-value-item">
+                        <h4>Excellence 卓越</h4>
+                        <p>持续进阶，树立标杆，在每个细节追求完美</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 董事会 -->
+            <div class="team-board">
+                <h3>董事会 / The Board</h3>
+                <div class="team-member-grid">
+                    <!-- 约瑟夫·萨金特 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">约瑟夫·萨金特 <en>Joseph Sargent</en></h4>
+                        <p class="team-member-national">国籍：德国 | Germany</p>
+                        <p class="team-member-pos">克莱因计划董事会 成员<br>首席技术官、开发与采购</p>
+                    </div>
+                    <!-- 李子杰 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">李子杰 <en>Li ZIJIE</en></h4>
+                        <p class="team-member-national">国籍：新加坡 | Singapore</p>
+                        <p class="team-member-pos">克莱因计划董事会 成员<br>业务部门主管</p>
+                    </div>
+                    <!-- 于悦奎 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">于悦奎 <en>YU YUEKUI</en></h4>
+                        <p class="team-member-national">国籍：中国 中国香港 | China</p>
+                        <p class="team-member-pos">克莱因计划 创始人<br>首席执行官兼赛车运动负责人<br>梅赛德斯-克莱因AMG F1电竞车队</p>
+                    </div>
+                    <!-- 张晨萧 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">张晨萧 <en>CHEN XIAO</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">克莱因计划董事会 成员<br>总法律顾问</p>
+                    </div>
+                    <!-- 博杰·戴因 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">博杰·戴因 <en>Bojie Dain</en></h4>
+                        <p class="team-member-national">国籍：英国 | Britain</p>
+                        <p class="team-member-pos">非执行董事<br>赛车运动副首席</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 团队成员 -->
+            <div class="team-staff">
+                <h3>团队成员 / Team Members</h3>
+                <div class="team-member-grid">
+                    <!-- 于悦奎 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">于悦奎 <en>YU YUEKUI</en></h4>
+                        <p class="team-member-national">国籍：中国 中国香港 | China</p>
+                        <p class="team-member-pos">克莱因计划 创始人<br>首席执行官兼赛车运动负责人<br>梅赛德斯-克莱因AMG F1电竞车队</p>
+                    </div>
+                    <!-- 孙钱康 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">孙钱康 <en>Sun Qiankang</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">首席运营官</p>
+                    </div>
+                    <!-- 宋佳琦 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">宋佳琦 <en>Song Jiaqi</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">技术总监</p>
+                    </div>
+                    <!-- 斯考特·布鲁斯 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">斯考特·布鲁斯 <en>Scott Bruce</en></h4>
+                        <p class="team-member-national">国籍：加拿大 | Canada</p>
+                        <p class="team-member-pos">首席财务官</p>
+                    </div>
+                    <!-- 张晨萧 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">张晨萧 <en>CHEN XIAO</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">克莱因计划董事会 成员<br>总法律顾问</p>
+                    </div>
+                    <!-- 马海涛 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">马海涛 <en>Ma Haitao</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">副电竞车队负责人</p>
+                    </div>
+                    <!-- 王静 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">王静 <en>Wang Jing</en></h4>
+                        <p class="team-member-national">国籍：中国 | China</p>
+                        <p class="team-member-pos">首席人事官</p>
+                    </div>
+                    <!-- 理查德·克里曼 -->
+                    <div class="team-member-card">
+                        <h4 class="team-member-name">理查德·克里曼 <en>Richard Kliman</en></h4>
+                        <p class="team-member-national">国籍：瑞士 | Switzerland</p>
+                        <p class="team-member-pos">首席商务官</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 赛车运动团队 -->
+            <div class="team-motorsport">
+                <h3>赛车运动团队 / Motorsport Team</h3>
+                <div class="team-motorsport-desc">
+                    梅赛德斯-克莱因AMG F1车队/电竞车队由克莱因计划与梅赛德斯-AMG深度联合打造，汇聚全球赛车领域专业人才，以极致的技术追求和团队协作，征战赛场。<br>
+                    车队依托克莱因计划的全球化运营能力与梅赛德斯-AMG的顶尖赛车技术，秉持All in Performance的核心理念，在速度与激情中诠释卓越，在竞技与创新中铸就辉煌。
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 团队板块脚本 -->
+    <script>
+        function showTeamModal() {
+            document.getElementById('teamModalMask').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function hideTeamModal() {
+            document.getElementById('teamModalMask').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        document.onkeydown = function(e) {
+            if (e.keyCode === 27) {
+                hideTeamModal();
+            }
+        }
+    </script>
+</body>
+</html>
