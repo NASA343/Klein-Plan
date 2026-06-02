@@ -15,8 +15,8 @@
             background-color: #ffffff;
             color: #333333;
             line-height: 1.6;
+            scroll-behavior: smooth; /* 全局平滑滚动 */
         }
-        /* 导航栏 */
         nav {
             background-color: #0a58ca;
             padding: 1rem 5%;
@@ -33,11 +33,21 @@
             justify-content: space-between;
             align-items: center;
         }
+        /* 新增：右侧按钮容器，统一管理语言切换和汉堡菜单 */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
         .logo {
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
         }
         .nav-links a {
             color: white;
@@ -49,21 +59,32 @@
         .nav-links a:hover {
             color: #cce7ff;
         }
-        /* 汉堡菜单按钮 - 移动端显示 */
+        .lang-switch {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .lang-switch:hover {
+            background: rgba(255,255,255,0.3);
+        }
         .hamburger {
             display: none;
             color: white;
             font-size: 1.8rem;
             cursor: pointer;
             line-height: 1;
+            user-select: none;
         }
-        /* 通用容器 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 5%;
         }
-        /* 首页横幅 */
         .hero {
             height: 100vh;
             background: linear-gradient(to right, #0a58ca, #3b82f6);
@@ -97,7 +118,6 @@
             background-color: #cce7ff;
             transform: translateY(-3px);
         }
-        /* 通用区块样式 */
         section {
             padding: 80px 0;
         }
@@ -116,7 +136,68 @@
             display: block;
             margin: 10px auto 0;
         }
-        /* 关于我们 */
+        /* 优化：开发项目响应式图片尺寸 */
+        .projects-scroll-container {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #f1f5f9;
+            padding: 10px 0;
+        }
+        .projects-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .projects-scroll-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .projects-scroll-container::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        .projects-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #0a58ca;
+        }
+        .projects-images {
+            display: flex;
+            gap: 24px;
+            padding-bottom: 16px;
+        }
+        .project-image {
+            flex-shrink: 0;
+            width: calc(100vw - 10%); /* 基础响应式宽度 */
+            max-width: 900px; /* 最大宽度限制 */
+            min-width: 300px; /* 最小宽度限制 */
+            height: auto; /* 高度自适应 */
+            aspect-ratio: 16/9; /* 固定16:9比例 */
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            background-color: #f8f9fa; /* 图片加载失败时的背景 */
+        }
+        .project-image:hover {
+            transform: scale(1.02);
+        }
+        .project-info {
+            margin-top: 30px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .project-title {
+            font-size: 1.8rem;
+            color: #0a58ca;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .project-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
         .about-content {
             display: flex;
             flex-wrap: wrap;
@@ -129,7 +210,6 @@
             font-size: 1.1rem;
             line-height: 1.8;
         }
-        /* 工作环境 - 原成长历程样式改造 */
         .works-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -150,15 +230,17 @@
             width: 100%;
             object-fit: cover;
             display: block;
-        }
-        .work-info {
-            padding: 20px;
+            background-color: #f8f9fa; /* 图片加载失败时的背景 */
         }
         .work-info h3 {
             color: #0a58ca;
             margin-bottom: 10px;
+            padding: 0 20px;
+            margin-top: 20px;
         }
-        /* 赞助商页面样式 - 适配官网风格 */
+        .work-info p {
+            padding: 0 20px 20px;
+        }
         .sponsor-section {
             margin-bottom: 30px;
             background-color: #f8f9fa;
@@ -191,7 +273,6 @@
             transform: translateY(-5px);
             color: #0a58ca;
         }
-        /* 招贤纳士专属样式 - 适配官网风格 */
         .careers-content {
             max-width: 900px;
             margin: 0 auto;
@@ -205,11 +286,6 @@
             padding-left: 10px;
             border-left: 3px solid #3b82f6;
         }
-        .careers-content p {
-            margin-bottom: 15px;
-            color: #444;
-        }
-        /* 9周年专属样式 - 完全适配官网风格 */
         .anniversary-content {
             max-width: 900px;
             margin: 0 auto;
@@ -235,7 +311,6 @@
             margin-top: 0.5rem;
             font-weight: 600;
         }
-        /* 联系方式 */
         .contact-content {
             text-align: center;
             max-width: 600px;
@@ -245,10 +320,6 @@
             margin: 30px 0;
             font-size: 1.1rem;
         }
-        .contact-info p {
-            margin-bottom: 15px;
-        }
-        /* 页脚 */
         footer {
             background-color: #0a58ca;
             color: white;
@@ -257,7 +328,6 @@
             font-size: 0.9rem;
             line-height: 1.8;
         }
-        /* 🌟 团队板块弹出层样式 🌟 */
         .team-modal-mask {
             position: fixed;
             top: 0;
@@ -297,6 +367,7 @@
             background: #f8f9fa;
             margin-bottom: 20px;
             transition: all 0.3s ease;
+            user-select: none;
         }
         .team-modal-close:hover {
             background: #e6f0ff;
@@ -308,14 +379,6 @@
             text-align: center;
             margin-bottom: 5px;
         }
-        .team-modal-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e6f0ff;
-        }
-        /* 我们的家 */
         .team-home {
             margin-bottom: 40px;
             padding: 25px;
@@ -341,7 +404,15 @@
             border-radius: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        /* 团队核心理念 */
+        .team-home-img {
+            width: 100%;
+            height: auto;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 20px;
+            background-color: #e9ecef; /* 图片加载失败时的背景 */
+        }
         .team-ethos {
             margin-bottom: 40px;
             padding: 25px;
@@ -354,10 +425,6 @@
             margin-bottom: 15px;
             padding-left: 10px;
             border-left: 3px solid #3b82f6;
-        }
-        .team-ethos p {
-            margin-bottom: 20px;
-            color: #444;
         }
         .team-values {
             display: grid;
@@ -375,7 +442,6 @@
             margin-bottom: 8px;
             font-size: 1.1rem;
         }
-        /* 董事会 & 团队成员通用 - 移除头像后优化内边距 */
         .team-board, .team-staff {
             margin-bottom: 40px;
         }
@@ -406,15 +472,6 @@
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-        .team-member-name en {
-            color: #666;
-            font-size: 1rem;
-            font-weight: 500;
         }
         .team-member-national {
             color: #888;
@@ -426,7 +483,6 @@
             font-size: 0.95rem;
             line-height: 1.6;
         }
-        /* 赛车运动团队 */
         .team-motorsport {
             padding-top: 20px;
             border-top: 2px solid #e6f0ff;
@@ -438,6 +494,14 @@
             padding-left: 10px;
             border-left: 3px solid #3b82f6;
         }
+        .team-motorsport-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            background-color: #e9ecef; /* 图片加载失败时的背景 */
+        }
         .team-motorsport-desc {
             text-align: center;
             padding: 30px;
@@ -447,7 +511,42 @@
             font-size: 1.1rem;
             line-height: 1.8;
         }
-        /* 响应式适配 */
+        /* 职业生涯弹窗样式 */
+        .career-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .career-section h3 {
+            font-size: 1.4rem;
+            color: #0a58ca;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #3b82f6;
+        }
+        .career-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #333;
+        }
+        .position-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .position-item {
+            padding: 10px 15px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .position-item:hover {
+            transform: translateY(-2px);
+            color: #0a58ca;
+        }
         @media (max-width: 768px) {
             .hamburger {
                 display: block;
@@ -462,6 +561,7 @@
                 padding: 1rem 5%;
                 box-shadow: 0 3px 5px rgba(0,0,0,0.1);
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 1rem;
             }
             .nav-links.active {
@@ -471,500 +571,994 @@
                 margin-left: 0;
                 padding: 0.5rem 0;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
+                width: 100%;
             }
-            .nav-links a:last-child {
-                border-bottom: none;
-            }
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            section {
-                padding: 60px 0;
-            }
+            /* 移除移动端原来的语言按钮样式，因为现在不在导航链接里了 */
             .sponsor-section {
                 padding: 20px;
-            }
-            .sponsor-subtitle {
-                font-size: 1.3rem;
-            }
-            .sponsor-list {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 10px;
-            }
-            .sponsor-item {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            .careers-content h3 {
-                font-size: 1.3rem;
-            }
-            .careers-content, .anniversary-content {
-                font-size: 1rem;
             }
             .work-img {
                 height: 180px;
             }
-            .anniversary-name {
-                font-size: 1.8rem;
-            }
-            footer {
-                font-size: 0.8rem;
-                padding: 25px 5%;
-            }
-            /* 移动端团队弹出层适配 */
             .team-modal {
                 padding: 20px;
             }
-            .team-modal-title {
-                font-size: 1.6rem;
+            .position-list {
+                grid-template-columns: 1fr;
             }
-            .team-ethos, .team-home {
-                padding: 20px;
+            /* 移动端项目图片优化 */
+            .project-image {
+                width: calc(100vw - 10%);
+                max-width: none;
             }
-            .team-home-address {
-                gap: 10px;
-            }
-            .team-home-address span {
-                padding: 6px 15px;
-                font-size: 1rem;
-            }
-            .team-member-card {
-                padding: 25px 15px;
+        }
+        /* 中等屏幕优化 */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .project-image {
+                width: calc(50vw + 200px);
+                max-width: 700px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Klein Plan 官方网站</a>
-            <div class="hamburger" onclick="this.nextElementSibling.classList.toggle('active')">☰</div>
-            <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于我们</a>
-                <a href="#works">工作环境</a>
-                <a href="#sponsor">赞助商</a>
-                <a href="#careers">招贤纳士</a>
-                <a href="#anniversary">9周年</a>
-                <a href="#contact">联系我们</a>
-                <a href="javascript:;" onclick="showTeamModal()">我们的团队</a>
-            </div>
+<nav>
+    <div class="nav-container">
+        <a href="#home" class="logo">Klein Plan</a>
+        <!-- 语言切换按钮移到这里，和汉堡菜单在同一容器 -->
+        <div class="nav-right">
+            <button class="lang-switch" id="langBtn" onclick="toggleLang()">中文</button>
+            <div class="hamburger" id="hamburger">☰</div>
         </div>
-    </nav>
-    <!-- 首页横幅 -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Klein Plan Official Website</h1>
-            <p>简约而不简单，专注品质展示与品牌塑造</p>
-            <a href="#about" class="btn">了解更多</a>
-        </div>
-    </section>
-    <!-- 关于我们 -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">关于我们</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>这里是Klein Plan官方站点，由YU YUEKUI创立打造，秉持简约、专业、清晰的设计理念，呈现核心价值与成果展示。</p>
-                    <br>
-                    <p>致力于用简洁的视觉语言传递专业态度，每一处设计与内容呈现，都围绕品质与实用性展开，打造专属窗口。克莱因计划提供支持的平台和工具，以提供满足客户不断变化的创新解决方案。我们致力于以负责任的方式广泛提供赞助与服务，其愿景是让每个人都能获得成就与尊重。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 工作环境 -->
-    <section id="works" style="background-color: #f8f9fa;">
-        <div class="container">
-            <h2 class="section-title">工作环境</h2>
-            <div class="works-grid">
-                <div class="work-card">
-                    <img src="work1.jpg" alt="二层公共区" class="work-img">
-                    <div class="work-info">
-                        <h3>二层公共区</h3>
-                        <p>通透采光的共享区域，适配团队协作与轻量会议</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <img src="work2.jpg" alt="餐饮休闲区" class="work-img">
-                    <div class="work-info">
-                        <h3>餐饮休闲区</h3>
-                        <p>舒适的用餐休憩空间，缓解工作疲劳提升幸福感</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <img src="work3.jpg" alt="大型会议室" class="work-img">
-                    <div class="work-info">
-                        <h3>大型会议室</h3>
-                        <p>专业级会议空间，配备高清屏与智能办公设备</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <img src="work4.jpg" alt="会议室区" class="work-img">
-                    <div class="work-info">
-                        <h3>会议室区</h3>
-                        <p>模块化会议室，满足不同规模的商务洽谈需求</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <img src="work5.jpg" alt="开放楼梯与休闲区" class="work-img">
-                    <div class="work-info">
-                        <h3>开放楼梯与休闲区</h3>
-                        <p>木质结构明亮色彩，激发创意的开放式交流空间</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <img src="work6.jpg" alt="个人工位区" class="work-img">
-                    <div class="work-info">
-                        <h3>个人工位区</h3>
-                        <p>高效专注办公工位，搭配专业设备与舒适座椅</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 赞助商 -->
-    <section id="sponsor">
-        <div class="container">
-            <h2 class="section-title">官方赞助商</h2>
-            <div class="sponsor-section">
-                <h3 class="sponsor-subtitle">冠名赞助商</h3>
-                <div class="sponsor-list">
-                    <div class="sponsor-item">阿迪达斯</div>
-                    <div class="sponsor-item">马来西亚石油</div>
-                    <div class="sponsor-item">梅赛德斯-奔驰</div>
-                    <div class="sponsor-item">微软</div>
-                </div>
-            </div>
-            <div class="sponsor-section">
-                <h3 class="sponsor-subtitle">中国赞助商</h3>
-                <div class="sponsor-list">
-                    <div class="sponsor-item">库洛游戏</div>
-                    <div class="sponsor-item">悠星</div>
-                    <div class="sponsor-item">小米</div>
-                    <div class="sponsor-item">七彩虹</div>
-                    <div class="sponsor-item">影驰</div>
-                    <div class="sponsor-item">安踏</div>
-                    <div class="sponsor-item">回力</div>
-                    <div class="sponsor-item">联想</div>
-                    <div class="sponsor-item">领克</div>
-                    <div class="sponsor-item">影视飓风</div>
-                    <div class="sponsor-item">青岛啤酒</div>
-                    <div class="sponsor-item">网易云音乐</div>
-                    <div class="sponsor-item">360</div>
-                    <div class="sponsor-item">ROG</div>
-                    <div class="sponsor-item">高德地图</div>
-                </div>
-            </div>
-            <div class="sponsor-section">
-                <h3 class="sponsor-subtitle">技术供应商</h3>
-                <div class="sponsor-list">
-                    <div class="sponsor-item">松浦</div>
-                    <div class="sponsor-item">米克朗</div>
-                    <div class="sponsor-item">三井精机</div>
-                    <div class="sponsor-item">山崎马扎克</div>
-                    <div class="sponsor-item">兹默曼</div>
-                    <div class="sponsor-item">阿奇夏米尔</div>
-                    <div class="sponsor-item">微软</div>
-                    <div class="sponsor-item">索尼</div>
-                    <div class="sponsor-item">小米</div>
-                    <div class="sponsor-item">倍耐力</div>
-                    <div class="sponsor-item">梅赛德斯-奔驰</div>
-                    <div class="sponsor-item">三星</div>
-                    <div class="sponsor-item">AMD</div>
-                    <div class="sponsor-item">骁龙</div>
-                </div>
-            </div>
-            <div class="sponsor-section">
-                <h3 class="sponsor-subtitle">国际赞助商</h3>
-                <div class="sponsor-list">
-                    <div class="sponsor-item">微软</div>
-                    <div class="sponsor-item">索尼</div>
-                    <div class="sponsor-item">XBOX</div>
-                    <div class="sponsor-item">PlayStation</div>
-                    <div class="sponsor-item">乐高</div>
-                    <div class="sponsor-item">奥迪</div>
-                    <div class="sponsor-item">三星</div>
-                    <div class="sponsor-item">万代南梦宫</div>
-                    <div class="sponsor-item">动视</div>
-                    <div class="sponsor-item">宝马</div>
-                    <div class="sponsor-item">科乐美</div>
-                    <div class="sponsor-item">倍世</div>
-                    <div class="sponsor-item">可口可乐</div>
-                    <div class="sponsor-item">路易威登</div>
-                    <div class="sponsor-item">帕加尼</div>
-                    <div class="sponsor-item">莲花</div>
-                    <div class="sponsor-item">布加迪</div>
-                    <div class="sponsor-item">梅赛德斯-奔驰</div>
-                    <div class="sponsor-item">阿斯顿·马丁</div>
-                    <div class="sponsor-item">艺电运动</div>
-                    <div class="sponsor-item">阿迪达斯</div>
-                    <div class="sponsor-item">万国</div>
-                    <div class="sponsor-item">保时捷</div>
-                    <div class="sponsor-item">世嘉</div>
-                    <div class="sponsor-item">英伟达</div>
-                    <div class="sponsor-item">505游戏</div>
-                    <div class="sponsor-item">雅马哈</div>
-                    <div class="sponsor-item">Crowd Strike</div>
-                    <div class="sponsor-item">英力士</div>
-                    <div class="sponsor-item">初音未来</div>
-                    <div class="sponsor-item">piapro</div>
-                    <div class="sponsor-item">骁龙</div>
-                    <div class="sponsor-item">TeamViewer</div>
-                    <div class="sponsor-item">索莱拉</div>
-                    <div class="sponsor-item">惠普企业</div>
-                    <div class="sponsor-item">瑞银</div>
-                    <div class="sponsor-item">Meta AI</div>
-                    <div class="sponsor-item">Nu</div>
-                    <div class="sponsor-item">WhatsAPP</div>
-                    <div class="sponsor-item">SAP</div>
-                    <div class="sponsor-item">G42</div>
-                    <div class="sponsor-item">Signify</div>
-                    <div class="sponsor-item">万豪邦沃</div>
-                    <div class="sponsor-item">AMD</div>
-                    <div class="sponsor-item">Einhell</div>
-                    <div class="sponsor-item">阿科迪斯</div>
-                    <div class="sponsor-item">舍温·威廉姆斯</div>
-                    <div class="sponsor-item">纳斯达克</div>
-                    <div class="sponsor-item">Endless</div>
-                    <div class="sponsor-item">倍耐力</div>
-                    <div class="sponsor-item">Mous</div>
-                    <div class="sponsor-item">三丽鸥</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 招贤纳士 -->
-    <section id="careers" style="background-color: #f8f9fa;">
-        <div class="container">
-            <h2 class="section-title">招贤纳士</h2>
-            <div class="careers-content">
-                <h3>在克莱因计划生活</h3>
-                <p>充分享受生活</p>
-                <p>在克莱因计划，您可以承担风险、突破界限，并取得超出您想象的收益。在这段旅程中，您不会孤单。我们这里有一些特别的东西;我们以员工为中心，我们深知，我们所提供的不仅对您的工作至关重要，而且对您的生活也至关重要。除了旨在帮助您和您的家人过上美好生活外，我们还根据个人绩效为符合条件的员工提供有竞争力的薪酬、奖金和股票奖励，以及帮助您过上健康生活、投资未来并享受旅程的福利。</p>
-                
-                <h3>我们对薪酬公平的承诺</h3>
-                <p>我们致力于薪酬公平的原则 – 为员工提供基本相似的工作的公平报酬。</p>
-                
-                <h3>我们的文化</h3>
-                <p>我们从根本上认为，我们需要一种以成长型思维方式为基础的文化。它始于每个人都可以成长和发展的信念;这种潜力是培养的，而不是预先确定的;任何人都可以改变他们的心态。</p>
-                <p>我们需要不断学习和永不满足的好奇心。我们需要愿意面对不确定性，敢于冒险，并在犯错时迅速行动，认识到失败发生在掌握的道路上。我们需要对他人的想法持开放态度，这样别人的成功不会削弱我们自己的成功。</p>
-                
-                <h3>工作地点与时间</h3>
-                <p>我们实现混合工作场所灵活性的方法，这包括您工作的时间和天数。我们鼓励员工在最适合他们的地点和时间工作，并使他们能够按照期望工作。</p>
-            </div>
-        </div>
-    </section>
-    <!-- 9周年 -->
-    <section id="anniversary">
-        <div class="container">
-            <h2 class="section-title">克莱因计划 9周年</h2>
-            <div class="anniversary-content">
-                <p>9年前，在一个不起眼的房间，一个了不起的想法诞生了。GHOST Studio的创立，源自一个单纯的信念：科技应该更个人化。当时，这种想法被视为异想天开，但却真正改变了世界。</p>
-                <p>今年 7 月 1 日，克莱因计划 迎来 9 周年。回顾过去的九年，我们从未停止对新思路、新可能的探索，并将众多强大工具交到用户手中。从第一部 GHOST 电脑到 Surface，从 Surface Pro 到 Surface Laptop，再到 Surface Laptop 13、Surface Watch 和 Xbox Series X；还有陪伴日常生活的各项服务：Microsoft Store 、Android 、Microsoft Pay、AZURE 和 Windows 。在一个个创举背后，我们始终坚信：推动世界前行的力量，来自敢于追求不同想法的人。</p>
-                <p>因为进步，往往从个人起步。可能是发明家或科学家，也可能来自学生或故事创作者，他们总在寻找更好的方法、新颖的点子，或别出心裁的途径。这样的精神，从 克莱因计划 成立之初就一直引领着我们，但这并不只属于我们。</p>
-                <p>我们的每一项创新，都只是起了个头，而最精彩的篇章，正由你们亲自撰写。你们是科技真正的使用者，在工作、学习、探索和追寻梦想的过程中尽情施展。你们获得了新突破，开拓了新业务；温暖了病房中的亲友，记录了宝宝踏出的第一步；你们跑完了马拉松，写出了精彩大作，还和老友重拾情谊；你们探索了未知的新奇，找到了爱听的新歌，还分享了动人的故事，让大家心与心相连。</p>
-                <p>在你们手中，我们打造的工具得以发挥所长，将日常生活变得更美好，甚至能在紧要关头施以援手。真正激励我们的，从来不是科技本身能做什么，而是你能用科技实现什么。</p>
-                <p>在 克莱因计划，我们更注重开创未来，而不是沉浸过往。但在 9 周年这个重要的里程碑，我们想要感谢全球数以百万计的人，是你们共同造就了今天的 克莱因计划。感谢我们全球各地的优秀团队，感谢我们的开发者社区，感谢每一位陪我们一路走来的用户。你们的巧思，带给我们新的启发；你们的信任，激励我们精益求精；你们的故事提醒我们，敢于追求不同想法，才能达成更多精彩。</p>
-                <p>你们教会了我们一件事：那些看似疯狂、满脑子想要改变世界的人，真的能改变世界。</p>
-                <div class="anniversary-quote">
-                    <p>为那些疯狂的人干杯。</p>
-                    <p>不合群的人。</p>
-                    <p>叛逆的人。</p>
-                    <p>制造麻烦的人。</p>
-                    <p>残疾的人。</p>
-                    <p>那些看待事物不同的人。</p>
-                </div>
-                <div class="anniversary-signature">
-                    向各位致敬
-                    <div class="anniversary-name">YU YUEKUI</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 联系方式 -->
-    <section id="contact" style="background-color: #f8f9fa;">
-        <div class="container">
-            <h2 class="section-title">联系我们</h2>
-            <div class="contact-content">
-                <p>期待与你交流合作，可通过以下方式联系我们</p>
-                <div class="contact-info">
-                    <p>邮箱：2265736302@qq.com</p>
-                    <p>中国大陆：中国山东 中国上海 中国北京 中国重庆 香港特别行政区</p>
-                    <p>海外地区：英国伦敦 德国斯图加特 德国柏林 德国阿尔特巴赫 美国纽约 美国华盛顿 日本东京 日本北海道 韩国首尔 法国巴黎 挪威奥斯陆 意大利罗马 比利时布鲁塞尔 荷兰阿姆斯特丹</p>
-                </div>
-                <a href="mailto:contact@kleinplan.com" class="btn">发送邮件</a>
-            </div>
-        </div>
-    </section>
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <p>© 2017-2023 GHOST studio. All Rights Reserved.</p>
-            <p>© 2025-2026 克莱因计划（中国）. All Rights Reserved.</p>
-            <p>GHOST HOER、GHOST studio、幽灵霍尔（中国）、幽灵工作室（中国）是GHOST游戏公司的注册商标，其商标及知识产权归克莱因计划公司及授权合作公司所有。</p>
-            <p>克莱因计划、克莱因计划（中国）、梅赛德斯-克莱因计划 赛车运动、克莱因法务部、克莱因计划-山东团队、克莱因计划-上海团队、克莱因计划-阿法特巴赫团队是克莱因计划公司的注册商标，其商标及知识产权归克莱因计划公司、YU YUEKUI及授权合作公司所有。</p>
-            <p>© 2024 ️阿尔塔什（中国）相关知识产权归其所有方所有。</p>
-            <p>请尊重各国法律法规与人权保护，任何违规行为将依法承担相应法律责任。</p>
-        </div>
-    </footer>
-    <!-- 团队板块弹出层 -->
-    <div class="team-modal-mask" id="teamModalMask" onclick="hideTeamModal()">
-        <div class="team-modal" onclick="event.stopPropagation()">
-            <div class="team-modal-close" onclick="hideTeamModal()">×</div>
-            <h2 class="team-modal-title">我们的团队 / Our Team</h2>
-            <p class="team-modal-subtitle">聚力向新，笃行致远 · 以专业铸就品质，以协作成就未来</p>
+        <div class="nav-links" id="navLinks">
+            <!-- 中文导航 -->
+            <a href="#home" data-lang-cn>首页</a>
+            <a href="#about" data-lang-cn>关于我们</a>
+            <a href="#works" data-lang-cn>工作环境</a>
+            <a href="#sponsor" data-lang-cn>赞助商</a>
+            <a href="#careers" data-lang-cn>招贤纳士</a>
+            <a href="#anniversary" data-lang-cn>9周年</a>
+            <a href="#contact" data-lang-cn>联系我们</a>
+            <a href="javascript:;" data-lang-cn onclick="showTeamModal()">我们的团队</a>
+            <a href="javascript:;" data-lang-cn onclick="showCareerModal()">职业生涯</a>
             
-            <!-- 我们的家 -->
-            <div class="team-home">
-                <h3>我们的家 / Our Home</h3>
-                <div class="team-home-address">
-                    <span>中国山东 | 克莱因计划 总部</span>
-                    <span>德国阿法特巴赫 | 梅赛德斯-AMG</span>
+            <!-- 英文导航 -->
+            <a href="#home" data-lang-en style="display:none;">Home</a>
+            <a href="#about" data-lang-en style="display:none;">About</a>
+            <a href="#works" data-lang-en style="display:none;">Workspace</a>
+            <a href="#sponsor" data-lang-en style="display:none;">Sponsors</a>
+            <a href="#careers" data-lang-en style="display:none;">Careers</a>
+            <a href="#anniversary" data-lang-en style="display:none;">9th Anniv</a>
+            <a href="#contact" data-lang-en style="display:none;">Contact</a>
+            <a href="javascript:;" data-lang-en style="display:none;" onclick="showTeamModal()">Our Team</a>
+            <a href="javascript:;" data-lang-en style="display:none;" onclick="showCareerModal()">Career</a>
+            
+            <!-- 日语导航 -->
+            <a href="#home" data-lang-ja style="display:none;">ホーム</a>
+            <a href="#about" data-lang-ja style="display:none;">会社概要</a>
+            <a href="#works" data-lang-ja style="display:none;">職場環境</a>
+            <a href="#sponsor" data-lang-ja style="display:none;">スポンサー</a>
+            <a href="#careers" data-lang-ja style="display:none;">採用情報</a>
+            <a href="#anniversary" data-lang-ja style="display:none;">9周年</a>
+            <a href="#contact" data-lang-ja style="display:none;">お問い合わせ</a>
+            <a href="javascript:;" data-lang-ja style="display:none;" onclick="showTeamModal()">チーム紹介</a>
+            <a href="javascript:;" data-lang-ja style="display:none;" onclick="showCareerModal()">キャリア</a>
+        </div>
+    </div>
+</nav>
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1 data-lang-cn>克莱因计划</h1>
+        <h1 data-lang-en style="display:none;">Klein Plan Official Website</h1>
+        <h1 data-lang-ja style="display:none;">Klein Plan 公式サイト</h1>
+        
+        <p data-lang-cn>九载同行，初心未改</p>
+        <p data-lang-en style="display:none;">Nine years of journeying together, our original aspiration remains unchanged</p>
+        <p data-lang-ja style="display:none;">9年間共に歩み、初心を忘れず</p>
+        
+        <a href="#about" class="btn" data-lang-cn>了解更多</a>
+        <a href="#about" class="btn" data-lang-en style="display:none;">Learn More</a>
+        <a href="#about" class="btn" data-lang-ja style="display:none;">詳しく見る</a>
+    </div>
+</section>
+<!-- 开发项目展示区 -->
+<section id="projects">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>开发项目</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Projects</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">開発プロジェクト</h2>
+        
+        <div class="projects-scroll-container">
+            <div class="projects-images">
+                <img src="A.jpg" class="project-image" alt="HOTA FUTURE Japanese version" loading="lazy">
+                <img src="B.jpg" class="project-image" alt="HOTA FUTURE Chinese version" loading="lazy">
+                <img src="C.jpg" class="project-image" alt="HOTA FUTURE English version" loading="lazy">
+            </div>
+        </div>
+        
+        <div class="project-info">
+            <h3 class="project-title">HOTA FUTURE Developer Social Platform</h3>
+            <p class="project-desc" data-lang-cn>由克莱因计划东京团队制作HOTA FUTURE开发者社交平台，提供开发工具、开源代码、社区、好友聊天、文件仓库、AI协助等服务</p>
+            <p class="project-desc" data-lang-en style="display:none;">HOTA FUTURE Developer Social Platform, created by Klein Plan Tokyo Team, provides development tools, open source code, community, chat, file repository, AI assistance and more services</p>
+            <p class="project-desc" data-lang-ja style="display:none;">クラインプラン東京チームが開発したHOTA FUTURE開発者ソーシャルプラットフォーム。開発ツール、オープンソースコード、コミュニティ、チャット、ファイルリポジトリ、AIアシスタンスなどのサービスを提供しています</p>
+        </div>
+    </div>
+</section>
+<section id="about">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>关于我们</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">About Us</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">会社概要</h2>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <p data-lang-cn>这里是Klein Plan官方站点，由YU YUEKUI与克莱因计划团队创立打造，秉持简约、专业、清晰的设计理念，呈现核心价值与成果展示。</p>
+                <p data-lang-en style="display:none;">This is the official website of Klein Plan, founded and built by YU YUEKUI and the Klein Plan Team. It adheres to the design philosophy of simplicity, professionalism, and clarity, presenting core values and showcasing achievements.</p>
+                <p data-lang-ja style="display:none;">こちらはKlein Planの公式サイトです。YU YUEKUIとクラインプランチームによって設立され、シンプルさ、プロフェッショナリズム、明確さをデザイン理念として、コアバリューと成果を発信しています。</p>
+                <br>
+                <p data-lang-cn>致力于用简洁的视觉语言传递专业态度，每一处设计与内容呈现，都围绕品质与实用性展开，打造专属窗口。克莱因计划提供支持的平台和工具，以提供满足客户不断变化的创新解决方案。我们致力于以负责任的方式广泛提供赞助与服务，其愿景是让每个人都能获得成就与尊重。</p>
+                <p data-lang-en style="display:none;">We deliver professionalism through concise design. Klein Plan provides platforms and tools to offer innovative solutions for evolving client needs. We responsibly provide sponsorships and services worldwide, with a vision to help everyone achieve success and respect.</p>
+                <p data-lang-ja style="display:none;">シンプルなビジュアルでプロフェッショナルな姿勢を伝え、すべてのデザインとコンテンツは品質と実用性を重視しています。クラインプランは、お客様の変化するニーズに応える革新的なソリューションを提供するプラットフォームとツールを提供しています。責任ある方法でスポンサーシップとサービスを広く提供し、誰もが成果と尊重を得られる世界を目指しています。</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="works" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>工作环境</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Work Environment</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">職場環境</h2>
+        
+        <div class="works-grid">
+            <div class="work-card">
+                <img src="work1.jpg" class="work-img" alt="二层公共区" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>二层公共区</h3>
+                    <h3 data-lang-en style="display:none;">2nd Floor Public Area</h3>
+                    <h3 data-lang-ja style="display:none;">2階パブリックエリア</h3>
+                    
+                    <p data-lang-cn>通透采光的共享区域，适配团队协作与轻量会议</p>
+                    <p data-lang-en style="display:none;">Bright shared space for teamwork and meetings</p>
+                    <p data-lang-ja style="display:none;">明るい共有スペースで、チームワークと軽いミーティングに最適です</p>
                 </div>
             </div>
-            <!-- 团队核心理念 -->
-            <div class="team-ethos">
-                <h3>团队核心理念 / Our Ethos</h3>
-                <p>All in Excellence。我们每日苛求极致专业，彼此成就携手前行，以技术卓越与无缝协作笃定实现目标。每位成员都被赋予实现团队愿景的力量，以最高标准践行责任，在信任的基石上，将挑战化为成长，将热爱化为成就。</p>
-                <div class="team-values">
-                    <div class="team-value-item">
-                        <h4>Passion 热忱</h4>
-                        <p>热爱所做之事，凝聚能量，共庆每一个里程碑</p>
-                    </div>
-                    <div class="team-value-item">
-                        <h4>Respect 尊重</h4>
-                        <p>深度倾听，坦诚探讨，认可每一位贡献者的价值</p>
-                    </div>
-                    <div class="team-value-item">
-                        <h4>Innovation 创新</h4>
-                        <p>拥抱新思，开拓新径，永不停歇探索最优解</p>
-                    </div>
-                    <div class="team-value-item">
-                        <h4>Determination 坚定</h4>
-                        <p>承压从容，迎难而上，坚守目标直至达成</p>
-                    </div>
-                    <div class="team-value-item">
-                        <h4>Excellence 卓越</h4>
-                        <p>持续进阶，树立标杆，在每个细节追求完美</p>
-                    </div>
+            <div class="work-card">
+                <img src="work2.jpg" class="work-img" alt="餐饮休闲区" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>餐饮休闲区</h3>
+                    <h3 data-lang-en style="display:none;">Cafeteria & Lounge</h3>
+                    <h3 data-lang-ja style="display:none;">カフェテリア＆ラウンジ</h3>
+                    
+                    <p data-lang-cn>舒适的用餐休息空间，缓解工作疲劳</p>
+                    <p data-lang-en style="display:none;">A comfortable dining and resting space to alleviate work fatigue</p>
+                    <p data-lang-ja style="display:none;">快適な食事と休憩スペースで、仕事の疲れを癒やします</p>
                 </div>
             </div>
-            <!-- 董事会 -->
-            <div class="team-board">
-                <h3>董事会 / The Board</h3>
-                <div class="team-member-grid">
-                    <!-- 约瑟夫·萨金特 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">约瑟夫·萨金特 <en>Joseph Sargent</en></h4>
-                        <p class="team-member-national">国籍：德国 | Germany</p>
-                        <p class="team-member-pos">克莱因计划董事会 成员<br>首席技术官、开发与采购</p>
-                    </div>
-                    <!-- 李子杰 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">李子杰 <en>Li ZIJIE</en></h4>
-                        <p class="team-member-national">国籍：新加坡 | Singapore</p>
-                        <p class="team-member-pos">克莱因计划董事会 成员<br>业务部门主管</p>
-                    </div>
-                    <!-- 于悦奎 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">于悦奎 <en>YU YUEKUI</en></h4>
-                        <p class="team-member-national">国籍：中国 中国香港 | China</p>
-                        <p class="team-member-pos">克莱因计划 创始人<br>首席执行官兼赛车运动负责人<br>梅赛德斯-克莱因AMG F1电竞车队</p>
-                    </div>
-                    <!-- 张晨萧 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">张晨萧 <en>CHEN XIAO</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">克莱因计划董事会 成员<br>总法律顾问</p>
-                    </div>
-                    <!-- 博杰·戴因 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">博杰·戴因 <en>Bojie Dain</en></h4>
-                        <p class="team-member-national">国籍：英国 | Britain</p>
-                        <p class="team-member-pos">非执行董事<br>赛车运动副首席</p>
-                    </div>
+            <div class="work-card">
+                <img src="work3.jpg" class="work-img" alt="大型会议室" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>大型会议室</h3>
+                    <h3 data-lang-en style="display:none;">Large Conference Room</h3>
+                    <h3 data-lang-ja style="display:none;">大会議室</h3>
+                    
+                    <p data-lang-cn>专业级会议空间，配备高清屏与智能办公设备</p>
+                    <p data-lang-en style="display:none;">Professional meeting space with smart equipment</p>
+                    <p data-lang-ja style="display:none;">高精細ディスプレイとスマートオフィス機器を備えたプロフェッショナルな会議スペース</p>
                 </div>
             </div>
-            <!-- 团队成员 -->
-            <div class="team-staff">
-                <h3>团队成员 / Team Members</h3>
-                <div class="team-member-grid">
-                    <!-- 于悦奎 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">于悦奎 <en>YU YUEKUI</en></h4>
-                        <p class="team-member-national">国籍：中国 中国香港 | China</p>
-                        <p class="team-member-pos">克莱因计划 创始人<br>首席执行官兼赛车运动负责人<br>梅赛德斯-克莱因AMG F1电竞车队</p>
-                    </div>
-                    <!-- 孙钱康 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">孙钱康 <en>Sun Qiankang</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">首席运营官</p>
-                    </div>
-                    <!-- 宋佳琦 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">宋佳琦 <en>Song Jiaqi</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">技术总监</p>
-                    </div>
-                    <!-- 斯考特·布鲁斯 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">斯考特·布鲁斯 <en>Scott Bruce</en></h4>
-                        <p class="team-member-national">国籍：加拿大 | Canada</p>
-                        <p class="team-member-pos">首席财务官</p>
-                    </div>
-                    <!-- 张晨萧 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">张晨萧 <en>CHEN XIAO</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">克莱因计划董事会 成员<br>总法律顾问</p>
-                    </div>
-                    <!-- 马海涛 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">马海涛 <en>Ma Haitao</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">副电竞车队负责人</p>
-                    </div>
-                    <!-- 王静 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">王静 <en>Wang Jing</en></h4>
-                        <p class="team-member-national">国籍：中国 | China</p>
-                        <p class="team-member-pos">首席人事官</p>
-                    </div>
-                    <!-- 理查德·克里曼 -->
-                    <div class="team-member-card">
-                        <h4 class="team-member-name">理查德·克里曼 <en>Richard Kliman</en></h4>
-                        <p class="team-member-national">国籍：瑞士 | Switzerland</p>
-                        <p class="team-member-pos">首席商务官</p>
-                    </div>
+            <div class="work-card">
+                <img src="work4.jpg" class="work-img" alt="会议室区" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>会议室区</h3>
+                    <h3 data-lang-en style="display:none;">Meeting Zone</h3>
+                    <h3 data-lang-ja style="display:none;">会議室エリア</h3>
+                    
+                    <p data-lang-cn>模块化会议室，满足不同规模的商务洽谈需求</p>
+                    <p data-lang-en style="display:none;">Modular rooms for business discussions</p>
+                    <p data-lang-ja style="display:none;">様々な規模の商談に対応できるモジュール式会議室</p>
                 </div>
             </div>
-            <!-- 赛车运动团队 -->
-            <div class="team-motorsport">
-                <h3>赛车运动团队 / Motorsport Team</h3>
-                <div class="team-motorsport-desc">
-                    梅赛德斯-克莱因AMG F1车队/电竞车队由克莱因计划与梅赛德斯-AMG深度联合打造，汇聚全球赛车领域专业人才，以极致的技术追求和团队协作，征战赛场。<br>
-                    车队依托克莱因计划的全球化运营能力与梅赛德斯-AMG的顶尖赛车技术，秉持All in Performance的核心理念，在速度与激情中诠释卓越，在竞技与创新中铸就辉煌。
+            <div class="work-card">
+                <img src="work5.jpg" class="work-img" alt="开放楼梯与休闲区" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>开放楼梯与休闲区</h3>
+                    <h3 data-lang-en style="display:none;">Open Stairs & Lounge</h3>
+                    <h3 data-lang-ja style="display:none;">オープン階段＆ラウンジ</h3>
+                    
+                    <p data-lang-cn>木质结构明亮色彩，激发创意的开放式交流空间</p>
+                    <p data-lang-en style="display:none;">Creative open communication space</p>
+                    <p data-lang-ja style="display:none;">木造構造と明るい色彩が創造性を刺激するオープンな交流スペース</p>
+                </div>
+            </div>
+            <div class="work-card">
+                <img src="work6.jpg" class="work-img" alt="个人办公区" loading="lazy">
+                <div class="work-info">
+                    <h3 data-lang-cn>个人办公区</h3>
+                    <h3 data-lang-en style="display:none;">Personal office area</h3>
+                    <h3 data-lang-ja style="display:none;">個人オフィスエリア</h3>
+                    
+                    <p data-lang-cn>高效专注办公工位，搭配专业设备</p>
+                    <p data-lang-en style="display:none;">Focused, Equipped with professional equipment</p>
+                    <p data-lang-ja style="display:none;">集中して作業できるプロフェッショナルな個人ワークスペース</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- 团队板块脚本 -->
-    <script>
-        function showTeamModal() {
-            document.getElementById('teamModalMask').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+</section>
+<section id="anniversary">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>克莱因计划 9周年</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Klein Plan 9th Anniversary</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">クラインプラン 9周年</h2>
+        
+        <div class="anniversary-content">
+            <p data-lang-cn>9年前，在一个不起眼的房间，一个了不起的想法诞生了。GHOST Studio的创立，源自一个单纯的信念：科技应该更个人化。当时，这种想法被视为异想天开，但却真正改变了世界。</p>
+            <p data-lang-en style="display:none;">Nine years ago, in a small room, an extraordinary idea was born. GHOST Studio was founded on a simple belief: technology should be more personal. Back then, it sounded crazy. But it truly changed the world.</p>
+            <p data-lang-ja style="display:none;">9年前、小さな部屋で素晴らしいアイデアが生まれました。GHOST Studioは「テクノロジーはもっと個人に寄り添うべきだ」というシンプルな信念に基づいて設立されました。当時は突拍子もない考えと思われましたが、世界を本当に変えました。</p>
+            
+            <p data-lang-cn>今年 7 月 1 日，克莱因计划迎来 9 周年。回顾过去九年，我们从未停止探索新思路、新可能，从 GHOST 电脑到 Surface、Xbox，再到各类服务，始终相信：推动世界前行的力量，来自敢于追求不同想法的人。</p>
+            <p data-lang-en style="display:none;">This July 1st, Klein Plan turns 9. Over these nine years, we have never stopped exploring new ideas, from GHOST PC to Surface, Xbox and services. We believe the force that moves the world forward comes from people who dare to think differently.</p>
+            <p data-lang-ja style="display:none;">今年7月1日、クラインプランは9周年を迎えます。この9年間、GHOST PCからSurface、Xbox、各種サービスまで、新しいアイデアと可能性を探求し続けてきました。世界を前進させる力は、異なる考えを追求する勇気を持つ人々から生まれると信じています。</p>
+            
+            <p data-lang-cn>你们用我们打造的工具，实现突破、开拓事业、连接彼此。真正激励我们的，从来不是科技本身能做什么，而是你能用科技实现什么。</p>
+            <p data-lang-en style="display:none;">You use our tools to achieve breakthroughs, build businesses, and connect with each other. What truly inspires us is not what technology can do, but what you can do with it.</p>
+            <p data-lang-ja style="display:none;">皆さんは私たちが作ったツールを使って、ブレイクスルーを達成し、事業を切り開き、互いにつながっています。私たちを本当に励ましてくれるのは、テクノロジー自体ができることではなく、皆さんがテクノロジーを使って何を実現できるかです。</p>
+            
+            <p data-lang-cn>在9周年这个里程碑，我们感谢全球数百万用户、团队与开发者，是你们造就了今天的克莱因计划。</p>
+            <p data-lang-en style="display:none;">On this 9th anniversary, we thank millions around the world — our team, developers, and users — who have made Klein Plan what it is.</p>
+            <p data-lang-ja style="display:none;">9周年という節目に、世界中の何百万人ものユーザー、チーム、開発者の皆様に感謝申し上げます。今日のクラインプランを作り上げたのは皆さんです。</p>
+            
+            <p data-lang-cn>你们教会了我们一件事：那些看似疯狂、满脑子想要改变世界的人，真的能改变世界。</p>
+            <p data-lang-en style="display:none;">You have taught us something: the people crazy enough to think they can change the world are the ones who do.</p>
+            <p data-lang-ja style="display:none;">皆さんから学んだことがあります。世界を変えたいと考える、一見狂ったような人々こそが、本当に世界を変えるのだと。</p>
+            
+            <div class="anniversary-quote">
+                <p>Here's to the crazy ones.</p>
+                <p>The misfits.</p>
+                <p>The rebels.</p>
+                <p>The troublemakers.</p>
+                <p>The disabled.</p>
+                <p>The ones who see things differently.</p>
+            </div>
+            <div class="anniversary-signature">
+                <span data-lang-cn>向各位致敬</span>
+                <span data-lang-en style="display:none;">With respect</span>
+                <span data-lang-ja style="display:none;">敬意を込めて</span>
+                <div class="anniversary-name">YU YUEKUI</div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="sponsor">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>官方赞助商</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Official Sponsors</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">公式スポンサー</h2>
+        
+        <div class="sponsor-section">
+            <h3 class="sponsor-subtitle" data-lang-cn>冠名赞助商</h3>
+            <h3 class="sponsor-subtitle" data-lang-en style="display:none;">Title Sponsors</h3>
+            <h3 class="sponsor-subtitle" data-lang-ja style="display:none;">タイトルスポンサー</h3>
+            
+            <div class="sponsor-list">
+                <div class="sponsor-item" data-lang-cn>阿迪达斯</div>
+                <div class="sponsor-item" data-lang-en style="display:none;">Adidas</div>
+                <div class="sponsor-item" data-lang-ja style="display:none;">アディダス</div>
+                
+                <div class="sponsor-item" data-lang-cn>马来西亚石油</div>
+                <div class="sponsor-item" data-lang-en style="display:none;">Petronas</div>
+                <div class="sponsor-item" data-lang-ja style="display:none;">ペトロナス</div>
+                
+                <div class="sponsor-item" data-lang-cn>梅赛德斯-奔驰</div>
+                <div class="sponsor-item" data-lang-en style="display:none;">Mercedes‑Benz</div>
+                <div class="sponsor-item" data-lang-ja style="display:none;">メルセデス・ベンツ</div>
+                
+                <div class="sponsor-item" data-lang-cn>微软</div>
+                <div class="sponsor-item" data-lang-en style="display:none;">Microsoft</div>
+                <div class="sponsor-item" data-lang-ja style="display:none;">マイクロソフト</div>
+            </div>
+        </div>
+        <div class="sponsor-section">
+            <h3 class="sponsor-subtitle" data-lang-cn>中国赞助商</h3>
+            <h3 class="sponsor-subtitle" data-lang-en style="display:none;">Chinese Partners</h3>
+            <h3 class="sponsor-subtitle" data-lang-ja style="display:none;">中国パートナー</h3>
+            
+            <div class="sponsor-list">
+                <div class="sponsor-item" data-lang-cn>库洛游戏</div><div class="sponsor-item" data-lang-en style="display:none;">Kuro Games</div><div class="sponsor-item" data-lang-ja style="display:none;">クロゲームス</div>
+                <div class="sponsor-item" data-lang-cn>悠星</div><div class="sponsor-item" data-lang-en style="display:none;">YoStar</div><div class="sponsor-item" data-lang-ja style="display:none;">ヨースター</div>
+                <div class="sponsor-item" data-lang-cn>小米</div><div class="sponsor-item" data-lang-en style="display:none;">Xiaomi</div><div class="sponsor-item" data-lang-ja style="display:none;">シャオミ</div>
+                <div class="sponsor-item" data-lang-cn>七彩虹</div><div class="sponsor-item" data-lang-en style="display:none;">Colorful</div><div class="sponsor-item" data-lang-ja style="display:none;">カラフル</div>
+                <div class="sponsor-item" data-lang-cn>影驰</div><div class="sponsor-item" data-lang-en style="display:none;">Galax</div><div class="sponsor-item" data-lang-ja style="display:none;">ギャラクス</div>
+                <div class="sponsor-item" data-lang-cn>安踏</div><div class="sponsor-item" data-lang-en style="display:none;">Anta</div><div class="sponsor-item" data-lang-ja style="display:none;">アンタ</div>
+                <div class="sponsor-item" data-lang-cn>回力</div><div class="sponsor-item" data-lang-en style="display:none;">Warrior</div><div class="sponsor-item" data-lang-ja style="display:none;">フォワード</div>
+                <div class="sponsor-item" data-lang-cn>联想</div><div class="sponsor-item" data-lang-en style="display:none;">Lenovo</div><div class="sponsor-item" data-lang-ja style="display:none;">レノボ</div>
+                <div class="sponsor-item" data-lang-cn>领克</div><div class="sponsor-item" data-lang-en style="display:none;">Lynk & Co</div><div class="sponsor-item" data-lang-ja style="display:none;">リンク＆コー</div>
+                <div class="sponsor-item" data-lang-cn>影视飓风</div><div class="sponsor-item" data-lang-en style="display:none;">FilmStorm</div><div class="sponsor-item" data-lang-ja style="display:none;">フィルムストーム</div>
+                <div class="sponsor-item" data-lang-cn>青岛啤酒</div><div class="sponsor-item" data-lang-en style="display:none;">Tsingtao Beer</div><div class="sponsor-item" data-lang-ja style="display:none;">青島ビール</div>
+                <div class="sponsor-item" data-lang-cn>网易云音乐</div><div class="sponsor-item" data-lang-en style="display:none;">NetEase Cloud Music</div><div class="sponsor-item" data-lang-ja style="display:none;">NetEaseクラウドミュージック</div>
+                <div class="sponsor-item" data-lang-cn>360</div><div class="sponsor-item" data-lang-en style="display:none;">360</div><div class="sponsor-item" data-lang-ja style="display:none;">360</div>
+                <div class="sponsor-item" data-lang-cn>ROG</div><div class="sponsor-item" data-lang-en style="display:none;">ROG</div><div class="sponsor-item" data-lang-ja style="display:none;">ROG</div>
+                <div class="sponsor-item" data-lang-cn>高德地图</div><div class="sponsor-item" data-lang-en style="display:none;">Amap</div><div class="sponsor-item" data-lang-ja style="display:none;">アマップ</div>
+            </div>
+        </div>
+        <div class="sponsor-section">
+            <h3 class="sponsor-subtitle" data-lang-cn>技术供应商</h3>
+            <h3 class="sponsor-subtitle" data-lang-en style="display:none;">Technology Suppliers</h3>
+            <h3 class="sponsor-subtitle" data-lang-ja style="display:none;">技術サプライヤー</h3>
+            
+            <div class="sponsor-list">
+                <div class="sponsor-item" data-lang-cn>松浦</div><div class="sponsor-item" data-lang-en style="display:none;">Matsuura</div><div class="sponsor-item" data-lang-ja style="display:none;">マツウラ</div>
+                <div class="sponsor-item" data-lang-cn>米克朗</div><div class="sponsor-item" data-lang-en style="display:none;">Mikron</div><div class="sponsor-item" data-lang-ja style="display:none;">ミクロン</div>
+                <div class="sponsor-item" data-lang-cn>三井精机</div><div class="sponsor-item" data-lang-en style="display:none;">Mitsui Seiki</div><div class="sponsor-item" data-lang-ja style="display:none;">三井精機</div>
+                <div class="sponsor-item" data-lang-cn>山崎马扎克</div><div class="sponsor-item" data-lang-en style="display:none;">Yamazaki Mazak</div><div class="sponsor-item" data-lang-ja style="display:none;">ヤマザキマザック</div>
+                <div class="sponsor-item" data-lang-cn>兹默曼</div><div class="sponsor-item" data-lang-en style="display:none;">Zimmermann</div><div class="sponsor-item" data-lang-ja style="display:none;">ツィンマーマン</div>
+                <div class="sponsor-item" data-lang-cn>阿奇夏米尔</div><div class="sponsor-item" data-lang-en style="display:none;">GF Machining Solutions</div><div class="sponsor-item" data-lang-ja style="display:none;">GFマシニングソリューションズ</div>
+                <div class="sponsor-item" data-lang-cn>微软</div><div class="sponsor-item" data-lang-en style="display:none;">Microsoft</div><div class="sponsor-item" data-lang-ja style="display:none;">マイクロソフト</div>
+                <div class="sponsor-item" data-lang-cn>索尼</div><div class="sponsor-item" data-lang-en style="display:none;">Sony</div><div class="sponsor-item" data-lang-ja style="display:none;">ソニー</div>
+                <div class="sponsor-item" data-lang-cn>小米</div><div class="sponsor-item" data-lang-en style="display:none;">Xiaomi</div><div class="sponsor-item" data-lang-ja style="display:none;">シャオミ</div>
+                <div class="sponsor-item" data-lang-cn>倍耐力</div><div class="sponsor-item" data-lang-en style="display:none;">Pirelli</div><div class="sponsor-item" data-lang-ja style="display:none;">ピレリ</div>
+                <div class="sponsor-item" data-lang-cn>梅赛德斯-奔驰</div><div class="sponsor-item" data-lang-en style="display:none;">Mercedes‑Benz</div><div class="sponsor-item" data-lang-ja style="display:none;">メルセデス・ベンツ</div>
+                <div class="sponsor-item" data-lang-cn>三星</div><div class="sponsor-item" data-lang-en style="display:none;">Samsung</div><div class="sponsor-item" data-lang-ja style="display:none;">サムスン</div>
+                <div class="sponsor-item" data-lang-cn>AMD</div><div class="sponsor-item" data-lang-en style="display:none;">AMD</div><div class="sponsor-item" data-lang-ja style="display:none;">AMD</div>
+                <div class="sponsor-item" data-lang-cn>骁龙</div><div class="sponsor-item" data-lang-en style="display:none;">Snapdragon</div><div class="sponsor-item" data-lang-ja style="display:none;">スナップドラゴン</div>
+            </div>
+        </div>
+        <div class="sponsor-section">
+            <h3 class="sponsor-subtitle" data-lang-cn>国际赞助商</h3>
+            <h3 class="sponsor-subtitle" data-lang-en style="display:none;">Global Partners</h3>
+            <h3 class="sponsor-subtitle" data-lang-ja style="display:none;">グローバルパートナー</h3>
+            
+            <div class="sponsor-list">
+                <div class="sponsor-item" data-lang-cn>微软</div><div class="sponsor-item" data-lang-en style="display:none;">Microsoft</div><div class="sponsor-item" data-lang-ja style="display:none;">マイクロソフト</div>
+                <div class="sponsor-item" data-lang-cn>索尼</div><div class="sponsor-item" data-lang-en style="display:none;">Sony</div><div class="sponsor-item" data-lang-ja style="display:none;">ソニー</div>
+                <div class="sponsor-item" data-lang-cn>Xbox</div><div class="sponsor-item" data-lang-en style="display:none;">Xbox</div><div class="sponsor-item" data-lang-ja style="display:none;">Xbox</div>
+                <div class="sponsor-item" data-lang-cn>PlayStation</div><div class="sponsor-item" data-lang-en style="display:none;">PlayStation</div><div class="sponsor-item" data-lang-ja style="display:none;">PlayStation</div>
+                <div class="sponsor-item" data-lang-cn>乐高</div><div class="sponsor-item" data-lang-en style="display:none;">LEGO</div><div class="sponsor-item" data-lang-ja style="display:none;">レゴ</div>
+                <div class="sponsor-item" data-lang-cn>奥迪</div><div class="sponsor-item" data-lang-en style="display:none;">Audi</div><div class="sponsor-item" data-lang-ja style="display:none;">アウディ</div>
+                <div class="sponsor-item" data-lang-cn>三星</div><div class="sponsor-item" data-lang-en style="display:none;">Samsung</div><div class="sponsor-item" data-lang-ja style="display:none;">サムスン</div>
+                <div class="sponsor-item" data-lang-cn>万代南梦宫</div><div class="sponsor-item" data-lang-en style="display:none;">Bandai Namco</div><div class="sponsor-item" data-lang-ja style="display:none;">バンダイナムコ</div>
+                <div class="sponsor-item" data-lang-cn>动视</div><div class="sponsor-item" data-lang-en style="display:none;">Activision</div><div class="sponsor-item" data-lang-ja style="display:none;">アクティビジョン</div>
+                <div class="sponsor-item" data-lang-cn>宝马</div><div class="sponsor-item" data-lang-en style="display:none;">BMW</div><div class="sponsor-item" data-lang-ja style="display:none;">BMW</div>
+                <div class="sponsor-item" data-lang-cn>科乐美</div><div class="sponsor-item" data-lang-en style="display:none;">Konami</div><div class="sponsor-item" data-lang-ja style="display:none;">コナミ</div>
+                <div class="sponsor-item" data-lang-cn>倍世</div><div class="sponsor-item" data-lang-en style="display:none;">BWT</div><div class="sponsor-item" data-lang-ja style="display:none;">BWT</div>
+                <div class="sponsor-item" data-lang-cn>可口可乐</div><div class="sponsor-item" data-lang-en style="display:none;">Coca-Cola</div><div class="sponsor-item" data-lang-ja style="display:none;">コカ・コーラ</div>
+                <div class="sponsor-item" data-lang-cn>路易威登</div><div class="sponsor-item" data-lang-en style="display:none;">Louis Vuitton</div><div class="sponsor-item" data-lang-ja style="display:none;">ルイ・ヴィトン</div>
+                <div class="sponsor-item" data-lang-cn>帕加尼</div><div class="sponsor-item" data-lang-en style="display:none;">Pagani</div><div class="sponsor-item" data-lang-ja style="display:none;">パガーニ</div>
+                <div class="sponsor-item" data-lang-cn>莲花</div><div class="sponsor-item" data-lang-en style="display:none;">Lotus</div><div class="sponsor-item" data-lang-ja style="display:none;">ロータス</div>
+                <div class="sponsor-item" data-lang-cn>布加迪</div><div class="sponsor-item" data-lang-en style="display:none;">Bugatti</div><div class="sponsor-item" data-lang-ja style="display:none;">ブガッティ</div>
+                <div class="sponsor-item" data-lang-cn>梅赛德斯-奔驰</div><div class="sponsor-item" data-lang-en style="display:none;">Mercedes‑Benz</div><div class="sponsor-item" data-lang-ja style="display:none;">メルセデス・ベンツ</div>
+                <div class="sponsor-item" data-lang-cn>阿斯顿·马丁</div><div class="sponsor-item" data-lang-en style="display:none;">Aston Martin</div><div class="sponsor-item" data-lang-ja style="display:none;">アストンマーティン</div>
+                <div class="sponsor-item" data-lang-cn>艺电运动</div><div class="sponsor-item" data-lang-en style="display:none;">EA Sports</div><div class="sponsor-item" data-lang-ja style="display:none;">EAスポーツ</div>
+                <div class="sponsor-item" data-lang-cn>阿迪达斯</div><div class="sponsor-item" data-lang-en style="display:none;">Adidas</div><div class="sponsor-item" data-lang-ja style="display:none;">アディダス</div>
+                <div class="sponsor-item" data-lang-cn>万国</div><div class="sponsor-item" data-lang-en style="display:none;">IWC</div><div class="sponsor-item" data-lang-ja style="display:none;">IWC</div>
+                <div class="sponsor-item" data-lang-cn>保时捷</div><div class="sponsor-item" data-lang-en style="display:none;">Porsche</div><div class="sponsor-item" data-lang-ja style="display:none;">ポルシェ</div>
+                <div class="sponsor-item" data-lang-cn>世嘉</div><div class="sponsor-item" data-lang-en style="display:none;">SEGA</div><div class="sponsor-item" data-lang-ja style="display:none;">セガ</div>
+                <div class="sponsor-item" data-lang-cn>英伟达</div><div class="sponsor-item" data-lang-en style="display:none;">NVIDIA</div><div class="sponsor-item" data-lang-ja style="display:none;">NVIDIA</div>
+                <div class="sponsor-item" data-lang-cn>505游戏</div><div class="sponsor-item" data-lang-en style="display:none;">505 Games</div><div class="sponsor-item" data-lang-ja style="display:none;">505ゲームス</div>
+                <div class="sponsor-item" data-lang-cn>雅马哈</div><div class="sponsor-item" data-lang-en style="display:none;">Yamaha</div><div class="sponsor-item" data-lang-ja style="display:none;">ヤマハ</div>
+                <div class="sponsor-item" data-lang-cn>Crowd Strike</div><div class="sponsor-item" data-lang-en style="display:none;">CrowdStrike</div><div class="sponsor-item" data-lang-ja style="display:none;">クラウドストライク</div>
+                <div class="sponsor-item" data-lang-cn>英力士</div><div class="sponsor-item" data-lang-en style="display:none;">INEOS</div><div class="sponsor-item" data-lang-ja style="display:none;">イネオス</div>
+                <div class="sponsor-item" data-lang-cn>初音未来</div><div class="sponsor-item" data-lang-en style="display:none;">Hatsune Miku</div><div class="sponsor-item" data-lang-ja style="display:none;">初音ミク</div>
+                <div class="sponsor-item" data-lang-cn>piapro</div><div class="sponsor-item" data-lang-en style="display:none;">piapro</div><div class="sponsor-item" data-lang-ja style="display:none;">piapro</div>
+                <div class="sponsor-item" data-lang-cn>骁龙</div><div class="sponsor-item" data-lang-en style="display:none;">Snapdragon</div><div class="sponsor-item" data-lang-ja style="display:none;">スナップドラゴン</div>
+                <div class="sponsor-item" data-lang-cn>TeamViewer</div><div class="sponsor-item" data-lang-en style="display:none;">TeamViewer</div><div class="sponsor-item" data-lang-ja style="display:none;">TeamViewer</div>
+                <div class="sponsor-item" data-lang-cn>索莱拉</div><div class="sponsor-item" data-lang-en style="display:none;">Solera</div><div class="sponsor-item" data-lang-ja style="display:none;">ソレラ</div>
+                <div class="sponsor-item" data-lang-cn>惠普企业</div><div class="sponsor-item" data-lang-en style="display:none;">HPE</div><div class="sponsor-item" data-lang-ja style="display:none;">HPE</div>
+                <div class="sponsor-item" data-lang-cn>瑞银</div><div class="sponsor-item" data-lang-en style="display:none;">UBS</div><div class="sponsor-item" data-lang-ja style="display:none;">UBS</div>
+                <div class="sponsor-item" data-lang-cn>Meta AI</div><div class="sponsor-item" data-lang-en style="display:none;">Meta AI</div><div class="sponsor-item" data-lang-ja style="display:none;">Meta AI</div>
+                <div class="sponsor-item" data-lang-cn>Nu</div><div class="sponsor-item" data-lang-en style="display:none;">Nu</div><div class="sponsor-item" data-lang-ja style="display:none;">Nu</div>
+                <div class="sponsor-item" data-lang-cn>WhatsAPP</div><div class="sponsor-item" data-lang-en style="display:none;">WhatsApp</div><div class="sponsor-item" data-lang-ja style="display:none;">WhatsApp</div>
+                <div class="sponsor-item" data-lang-cn>SAP</div><div class="sponsor-item" data-lang-en style="display:none;">SAP</div><div class="sponsor-item" data-lang-ja style="display:none;">SAP</div>
+                <div class="sponsor-item" data-lang-cn>G42</div><div class="sponsor-item" data-lang-en style="display:none;">G42</div><div class="sponsor-item" data-lang-ja style="display:none;">G42</div>
+                <div class="sponsor-item" data-lang-cn>Signify</div><div class="sponsor-item" data-lang-en style="display:none;">Signify</div><div class="sponsor-item" data-lang-ja style="display:none;">シグニファイ</div>
+                <div class="sponsor-item" data-lang-cn>万豪邦沃</div><div class="sponsor-item" data-lang-en style="display:none;">Marriott Bonvoy</div><div class="sponsor-item" data-lang-ja style="display:none;">マリオット・ボンヴォイ</div>
+                <div class="sponsor-item" data-lang-cn>AMD</div><div class="sponsor-item" data-lang-en style="display:none;">AMD</div><div class="sponsor-item" data-lang-ja style="display:none;">AMD</div>
+                <div class="sponsor-item" data-lang-cn>Einhell</div><div class="sponsor-item" data-lang-en style="display:none;">Einhell</div><div class="sponsor-item" data-lang-ja style="display:none;">アインヘル</div>
+                <div class="sponsor-item" data-lang-cn>阿科迪斯</div><div class="sponsor-item" data-lang-en style="display:none;">Accor</div><div class="sponsor-item" data-lang-ja style="display:none;">アコー</div>
+                <div class="sponsor-item" data-lang-cn>舍温·威廉姆斯</div><div class="sponsor-item" data-lang-en style="display:none;">Sherwin-Williams</div><div class="sponsor-item" data-lang-ja style="display:none;">シャーウィン・ウィリアムズ</div>
+                <div class="sponsor-item" data-lang-cn>纳斯达克</div><div class="sponsor-item" data-lang-en style="display:none;">Nasdaq</div><div class="sponsor-item" data-lang-ja style="display:none;">ナスダック</div>
+                <div class="sponsor-item" data-lang-cn>Endless</div><div class="sponsor-item" data-lang-en style="display:none;">Endless</div><div class="sponsor-item" data-lang-ja style="display:none;">Endless</div>
+                <div class="sponsor-item" data-lang-cn>倍耐力</div><div class="sponsor-item" data-lang-en style="display:none;">Pirelli</div><div class="sponsor-item" data-lang-ja style="display:none;">ピレリ</div>
+                <div class="sponsor-item" data-lang-cn>Mous</div><div class="sponsor-item" data-lang-en style="display:none;">Mous</div><div class="sponsor-item" data-lang-ja style="display:none;">Mous</div>
+                <div class="sponsor-item" data-lang-cn>三丽鸥</div><div class="sponsor-item" data-lang-en style="display:none;">Sanrio</div><div class="sponsor-item" data-lang-ja style="display:none;">サンリオ</div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="careers" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>招贤纳士</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Careers</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">採用情報</h2>
+        
+        <div class="careers-content">
+            <h3 data-lang-cn>在克莱因计划生活</h3>
+            <h3 data-lang-en style="display:none;">Life at Klein Plan</h3>
+            <h3 data-lang-ja style="display:none;">クラインプランでの生活</h3>
+            
+            <p data-lang-cn>充分享受生活</p>
+            <p data-lang-en style="display:none;">Live life to the fullest.</p>
+            <p data-lang-ja style="display:none;">人生を最大限に楽しむ</p>
+            
+            <p data-lang-cn>在克莱因计划，您可以承担风险、突破界限，并取得超出您想象的收益。我们以员工为中心，为您和家人提供全面保障，提供有竞争力的薪酬、奖金与福利，支持您健康生活、投资未来、享受旅程。</p>
+            <p data-lang-en style="display:none;">At Klein Plan, you can take risks, push boundaries, and achieve more than you ever imagined. We put people first, offering competitive pay, benefits and programs to support you and your family.</p>
+            <p data-lang-ja style="display:none;">クラインプランでは、リスクを負い、限界を超え、想像以上の成果を上げることができます。従業員を第一に考え、あなたとご家族のための総合的な保障を提供し、競争力のある給与、ボーナス、福利厚生を通じて、健康的な生活、未来への投資、そして旅の楽しみをサポートします。</p>
+            
+            <h3 data-lang-cn>我们对薪酬公平的承诺</h3>
+            <h3 data-lang-en style="display:none;">Our Commitment to Fair Pay</h3>
+            <h3 data-lang-ja style="display:none;">給与の公平性への取り組み</h3>
+            
+            <p data-lang-cn>我们致力于薪酬公平的原则 – 为员工提供更加公平的报酬。</p>
+            <p data-lang-en style="display:none;">We are committed to fair pay — Provide employees with more equitable compensation.</p>
+            <p data-lang-ja style="display:none;">私たちは給与の公平性の原則に取り組み、従業員により公平な報酬を提供することを約束します。</p>
+            
+            <h3 data-lang-cn>我们的文化</h3>
+            <h3 data-lang-en style="display:none;">Our Culture</h3>
+            <h3 data-lang-ja style="display:none;">私たちの文化</h3>
+            
+            <p data-lang-cn>我们需要一种以成长型思维方式为基础的文化。每个人都可以成长和发展，潜力是培养的，不是预先确定的。</p>
+            <p data-lang-en style="display:none;">We believe in a culture built on a growth mindset. Everyone can grow and develop; potential is nurtured, not predetermined.</p>
+            <p data-lang-ja style="display:none;">私たちは成長マインドセットに基づく文化を大切にしています。誰もが成長し発展することができ、可能性は生まれつきのものではなく、育てられるものだと信じています。</p>
+            
+            <p data-lang-cn>我们需要持续学习与好奇心，敢于面对不确定性，愿意冒险，从失败中成长，开放接纳他人的想法。</p>
+            <p data-lang-en style="display:none;">We value continuous learning, curiosity, bold risk-taking, and openness to the ideas of others.</p>
+            <p data-lang-ja style="display:none;">継続的な学習と好奇心、不確実性に立ち向かう勇気、冒険心、失敗からの成長、そして他者のアイデアを受け入れるオープンな姿勢を大切にしています。</p>
+            
+            <h3 data-lang-cn>工作地点与时间</h3>
+            <h3 data-lang-en style="display:none;">Work Location & Hours</h3>
+            <h3 data-lang-ja style="display:none;">勤務地と勤務時間</h3>
+            
+            <p data-lang-cn>我们支持灵活混合办公，鼓励您在最高效的地点与时间工作。</p>
+            <p data-lang-en style="display:none;">We support flexible hybrid work. We encourage you to work where and when you perform your best.</p>
+            <p data-lang-ja style="display:none;">柔軟なハイブリッドワークをサポートし、あなたが最も効率的に働ける場所と時間で仕事をすることを推奨しています。</p>
+        </div>
+    </div>
+</section>
+<section id="contact" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h2 class="section-title" data-lang-cn>联系我们</h2>
+        <h2 class="section-title" data-lang-en style="display:none;">Contact</h2>
+        <h2 class="section-title" data-lang-ja style="display:none;">お問い合わせ</h2>
+        
+        <div class="contact-content">
+            <p data-lang-cn>期待与你交流合作，可通过以下方式联系我们</p>
+            <p data-lang-en style="display:none;">We look forward to connecting and cooperating with you</p>
+            <p data-lang-ja style="display:none;">交流と協力を楽しみにしております。以下の方法でお問い合わせください</p>
+            
+            <div class="contact-info">
+                <p>Email: 2265736302@qq.com</p>
+                <p data-lang-cn>中国大陆：北京、上海、山东、重庆</p>
+                <p data-lang-en style="display:none;">Mainland China: Beijing, Shanghai, Shandong, Chongqing</p>
+                <p data-lang-ja style="display:none;">中国本土：北京、上海、山東、重慶</p>
+                
+                <p data-lang-cn>中国香港：香港特别行政区</p>
+                <p data-lang-en style="display:none;">Hong Kong SAR: Hong Kong</p>
+                <p data-lang-ja style="display:none;">香港特別行政区：香港</p>
+                
+                <p data-lang-cn>海外：伦敦、斯图加特、柏林、阿法特巴赫、纽约、华盛顿、东京、北海道、首尔、巴黎、奥斯陆、罗马、布鲁塞尔、阿姆斯特丹</p>
+                <p data-lang-en style="display:none;">Global: London, Stuttgart, Berlin, Affalterbach, New York, Washington, Tokyo, Hokkaido, Seoul, Paris, Oslo, Rome, Brussels, Amsterdam</p>
+                <p data-lang-ja style="display:none;">海外：ロンドン、シュトゥットガルト、ベルリン、アファルターバッハ、ニューヨーク、ワシントン、東京、北海道、ソウル、パリ、オスロ、ローマ、ブリュッセル、アムステルダム</p>
+            </div>
+            <a href="mailto:2265736302@qq.com" class="btn" data-lang-cn>发送邮件</a>
+            <a href="mailto:2265736302@qq.com" class="btn" data-lang-en style="display:none;">Send Email</a>
+            <a href="mailto:2265736302@qq.com" class="btn" data-lang-ja style="display:none;">メールを送信</a>
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <p>© 2017-2023 GHOST studio. All Rights Reserved.</p>
+        <p>© 2025-2026 Klein Plan (China). All Rights Reserved.</p>
+        <p data-lang-cn>GHOST HOER、GHOST studio、幽灵霍尔（中国）、幽灵工作室（中国）是GHOST游戏公司注册商标，知识产权归克莱因计划及授权方所有。</p>
+        <p data-lang-en style="display:none;">GHOST HOER, GHOST studio, Ghost Hall (China), Ghost Studio (China) are registered trademarks of GHOST Gaming. All IP belongs to Klein Plan and its licensed partners.</p>
+        <p data-lang-ja style="display:none;">GHOST HOER、GHOST studio、ゴーストホール（中国）、ゴーストスタジオ（中国）はGHOST Gamingの登録商標です。知的財産権はクラインプランおよびライセンシーに帰属します。</p>
+        
+        <p data-lang-cn>克莱因计划、梅赛德斯-克莱因计划赛车运动等为克莱因计划注册商标，知识产权归克莱因计划、YU YUEKUI及授权方所有。</p>
+        <p data-lang-en style="display:none;">Klein Plan, Mercedes-Klein Plan Motorsport are registered trademarks of Klein Plan. All IP belongs to Klein Plan, YU YUEKUI and authorized partners.</p>
+        <p data-lang-ja style="display:none;">クラインプラン、メルセデス・クラインプランモータースポーツはクラインプランの登録商標です。知的財産権はクラインプラン、YU YUEKUIおよびライセンシーに帰属します。</p>
+        
+        <p data-lang-cn>请尊重各国法律法规与人权保护，任何违规行为将依法承担相应法律责任。</p>
+        <p data-lang-en style="display:none;">Please respect laws and human rights worldwide. All violations will bear corresponding legal responsibilities.</p>
+        <p data-lang-ja style="display:none;">各国の法令と人権保護を尊重してください。違反行為には法的責任が問われます。</p>
+    </div>
+</footer>
+<!-- 团队弹窗 -->
+<div class="team-modal-mask" id="teamModalMask">
+    <div class="team-modal">
+        <div class="team-modal-close" onclick="hideTeamModal()">×</div>
+        <h2 class="team-modal-title" data-lang-cn>我们的团队</h2>
+        <h2 class="team-modal-title" data-lang-en style="display:none;">Our Team</h2>
+        <h2 class="team-modal-title" data-lang-ja style="display:none;">チーム紹介</h2>
+        
+        <div class="team-home">
+            <h3 data-lang-cn>我们的家</h3>
+            <h3 data-lang-en style="display:none;">Our Home</h3>
+            <h3 data-lang-ja style="display:none;">私たちの拠点</h3>
+            
+            <div class="team-home-address">
+                <span data-lang-cn>中国山东 | 克莱因计划 总部</span>
+                <span data-lang-en style="display:none;">Shandong, China | Klein Plan HQ</span>
+                <span data-lang-ja style="display:none;">中国山東 | クラインプラン本社</span>
+            </div>
+            <img src="work8.jpg" class="team-home-img" alt="克莱因计划" loading="lazy">
+        </div>
+        <div class="team-ethos">
+            <h3 data-lang-cn>团队核心理念</h3>
+            <h3 data-lang-en style="display:none;">Our Ethos</h3>
+            <h3 data-lang-ja style="display:none;">チームの核となる理念</h3>
+            
+            <p data-lang-cn>All in Excellence。我们每日苛求极致专业，彼此成就携手前行，以技术卓越与无缝协作笃定实现目标。每位成员都被赋予实现团队愿景的力量，以最高标准践行责任，在信任的基石上，将挑战化为成长，将热爱化为成就。</p>
+            <p data-lang-en style="display:none;">All in Excellence. We pursue professional perfection every day, support each other to move forward, and achieve goals with technical excellence and seamless collaboration. Every member is empowered to realize the team vision, act with the highest standards, turn challenges into growth and passion into achievement.</p>
+            <p data-lang-ja style="display:none;">All in Excellence。私たちは日々最高のプロフェッショナリズムを追求し、互いに支え合いながら前進し、技術の卓越性とシームレスなコラボレーションで目標を確実に達成します。すべてのメンバーがチームのビジョンを実現する力を与えられ、最高の基準で責任を果たし、信頼のもとで挑戦を成長に、情熱を成果に変えていきます。</p>
+            
+            <div class="team-values">
+                <div class="team-value-item">
+                    <h4 data-lang-cn>Passion 热忱</h4>
+                    <h4 data-lang-en style="display:none;">Passion</h4>
+                    <h4 data-lang-ja style="display:none;">情熱</h4>
+                    
+                    <p data-lang-cn>热爱所做之事，凝聚能量，共庆每一个里程碑</p>
+                    <p data-lang-en style="display:none;">Love what we do, energize each other, celebrate every milestone</p>
+                    <p data-lang-ja style="display:none;">自分の仕事を愛し、エネルギーを結集し、すべてのマイルストーンを共に祝います</p>
+                </div>
+                <div class="team-value-item">
+                    <h4 data-lang-cn>Respect 尊重</h4>
+                    <h4 data-lang-en style="display:none;">Respect</h4>
+                    <h4 data-lang-ja style="display:none;">尊重</h4>
+                    
+                    <p data-lang-cn>深度倾听，坦诚探讨，认可每一位贡献者的价值</p>
+                    <p data-lang-en style="display:none;">Listen deeply, communicate openly, value every contributor</p>
+                    <p data-lang-ja style="display:none;">深く傾聴し、率直に議論し、すべての貢献者の価値を認めます</p>
+                </div>
+                <div class="team-value-item">
+                    <h4 data-lang-cn>Innovation 创新</h4>
+                    <h4 data-lang-en style="display:none;">Innovation</h4>
+                    <h4 data-lang-ja style="display:none;">革新</h4>
+                    
+                    <p data-lang-cn>拥抱新思，开拓新径，永不停歇探索最优解</p>
+                    <p data-lang-en style="display:none;">Embrace new ideas, explore new paths, never stop improving</p>
+                    <p data-lang-ja style="display:none;">新しいアイデアを受け入れ、新しい道を切り開き、最適解を探求し続けます</p>
+                </div>
+                <div class="team-value-item">
+                    <h4 data-lang-cn>Determination 坚定</h4>
+                    <h4 data-lang-en style="display:none;">Determination</h4>
+                    <h4 data-lang-ja style="display:none;">決意</h4>
+                    
+                    <p data-lang-cn>承压从容，迎难而上，坚守目标直至达成</p>
+                    <p data-lang-en style="display:none;">Stay calm under pressure, face challenges, commit to results</p>
+                    <p data-lang-ja style="display:none;">プレッシャーの中でも冷静に、困難に立ち向かい、目標を達成するまで諦めません</p>
+                </div>
+                <div class="team-value-item">
+                    <h4 data-lang-cn>Excellence 卓越</h4>
+                    <h4 data-lang-en style="display:none;">Excellence</h4>
+                    <h4 data-lang-ja style="display:none;">卓越</h4>
+                    
+                    <p data-lang-cn>持续进阶，树立标杆，在每个细节追求完美</p>
+                    <p data-lang-en style="display:none;">Keep improving, set standards, pursue perfection in detail</p>
+                    <p data-lang-ja style="display:none;">継続的に成長し、基準を高め、すべての細部で完璧を追求します</p>
+                </div>
+            </div>
+        </div>
+        <div class="team-board">
+            <h3 data-lang-cn>董事会</h3>
+            <h3 data-lang-en style="display:none;">The Board</h3>
+            <h3 data-lang-ja style="display:none;">取締役会</h3>
+            
+            <div class="team-member-grid">
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>约瑟夫·萨金特</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Joseph Sargent</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ジョセフ・サージェント</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：德国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">Germany</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：ドイツ</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>克莱因计划董事会成员<br>首席技术官、开发与采购</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Board Member<br>CTO | Development & Procurement</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">クラインプラン取締役<br>最高技術責任者（開発・調達担当）</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>李子杰</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Li Zijie</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">リー・ズージェ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：新加坡</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">Singapore</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：シンガポール</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>克莱因计划董事会成员<br>业务部门主管</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Board Member<br>Business Director</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">クラインプラン取締役<br>事業部門責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>于悦奎</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">YU YUEKUI</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ユウ・ユエクイ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国 中国香港</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China / Hong Kong</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国・香港</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>创始人<br>首席执行官兼赛车运动负责人<br>梅赛德斯-克莱因AMG F1电竞车队</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Founder<br>CEO & Motorsport Director<br>Mercedes-Klein AMG F1 Esports</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">創業者<br>最高経営責任者兼モータースポーツ責任者<br>メルセデス・クラインAMG F1 eスポーツチーム</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>张晨萧</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Zhang Chenxiao</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">チャン・チェンシャオ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>克莱因计划董事会成员<br>总法律顾问</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Board Member<br>General Counsel</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">クラインプラン取締役<br>法務責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>博杰·戴因</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Bojie Dain</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ボジェ・デイン</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：英国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">United Kingdom</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：イギリス</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>非执行董事<br>赛车运动副首席</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Non-Executive Director<br>Deputy Motorsport Chief</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">非執行取締役<br>モータースポーツ副責任者</p>
+                </div>
+            </div>
+        </div>
+        <div class="team-staff">
+            <h3 data-lang-cn>团队成员</h3>
+            <h3 data-lang-en style="display:none;">Team Members</h3>
+            <h3 data-lang-ja style="display:none;">チームメンバー</h3>
+            
+            <div class="team-member-grid">
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>于悦奎</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">YU YUEKUI</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ユウ・ユエクイ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国 中国香港</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China / Hong Kong</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国・香港</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>创始人<br>首席执行官兼赛车运动负责人</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Founder<br>CEO & Motorsport Director</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">創業者<br>最高経営責任者兼モータースポーツ責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>孙钱康</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Sun Qiankang</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">スン・チエンカン</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>首席运营官</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">COO</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">最高執行責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>宋佳琦</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Song Jiaqi</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ソン・ジャチー</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>技术总监</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Technical Director</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">技術ディレクター</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>斯考特·布鲁斯</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Scott Bruce</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">スコット・ブルース</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：加拿大</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">Canada</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：カナダ</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>首席财务官</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">CFO</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">最高財務責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>张晨萧</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Zhang Chenxiao</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">チャン・チェンシャオ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>总法律顾问</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">General Counsel</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">法務責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>马海涛</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Ma Haitao</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">マー・ハイタオ</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>副电竞车队负责人</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">Deputy Esports Director</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">eスポーツチーム副責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>王静</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Wang Jing</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">ワン・ジン</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：中国</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">China</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：中国</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>首席人事官</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">CPO</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">最高人事責任者</p>
+                </div>
+                <div class="team-member-card">
+                    <h4 class="team-member-name" data-lang-cn>理查德·克里曼</h4>
+                    <h4 class="team-member-name" data-lang-en style="display:none;">Richard Kliman</h4>
+                    <h4 class="team-member-name" data-lang-ja style="display:none;">リチャード・クリマン</h4>
+                    
+                    <p class="team-member-national" data-lang-cn>国籍：瑞士</p>
+                    <p class="team-member-national" data-lang-en style="display:none;">Switzerland</p>
+                    <p class="team-member-national" data-lang-ja style="display:none;">国籍：スイス</p>
+                    
+                    <p class="team-member-pos" data-lang-cn>首席商务官</p>
+                    <p class="team-member-pos" data-lang-en style="display:none;">CBO</p>
+                    <p class="team-member-pos" data-lang-ja style="display:none;">最高営業責任者</p>
+                </div>
+            </div>
+        </div>
+        <div class="team-motorsport">
+            <h3 data-lang-cn>赛车运动团队</h3>
+            <h3 data-lang-en style="display:none;">Motorsport Team</h3>
+            <h3 data-lang-ja style="display:none;">モータースポーツチーム</h3>
+            
+            <img src="work7.jpg" class="team-motorsport-img" alt="梅赛德斯-克莱因计划F1电竞车队" loading="lazy">
+            <div class="team-motorsport-desc" data-lang-cn>
+                梅赛德斯-克莱因计划 F1 电竞车队，联合梅赛德斯-AMG打造，以顶尖技术征战赛场，诠释「All in Performance」的速度信仰。
+            </div>
+            <div class="team-motorsport-desc" data-lang-en style="display:none;">
+                Mercedes-Klein Plan F1 Esports Team, co-built with Mercedes-AMG, competing on the track with cutting-edge technology, embodying the speed faith of "All in Performance".
+            </div>
+            <div class="team-motorsport-desc" data-lang-ja style="display:none;">
+                メルセデス・クラインプランF1 eスポーツチームは、メルセデス・AMGと共同で設立され、最先端技術で戦場を駆け抜け、「All in Performance」のスピードへの信念を体現しています。
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 职业生涯弹窗 -->
+<div class="team-modal-mask" id="careerModalMask">
+    <div class="team-modal">
+        <div class="team-modal-close" onclick="hideCareerModal()">×</div>
+        <h2 class="team-modal-title" data-lang-cn>职业生涯</h2>
+        <h2 class="team-modal-title" data-lang-en style="display:none;">Career</h2>
+        <h2 class="team-modal-title" data-lang-ja style="display:none;">キャリア</h2>
+        
+        <div class="career-section">
+            <h3 data-lang-cn>未来规划</h3>
+            <h3 data-lang-en style="display:none;">Future Plan</h3>
+            <h3 data-lang-ja style="display:none;">将来の展望</h3>
+            
+            <div class="career-content">
+                <p data-lang-cn>克莱因计划坚持长期主义发展，持续布局技术研发、全球化拓展与人才体系建设，打造可持续成长平台，为员工提供清晰成长路径与广阔发展空间。</p>
+                <p data-lang-en style="display:none;">We uphold long-term development, focusing on R&D, globalization and talent development, building a sustainable platform with clear growth paths.</p>
+                <p data-lang-ja style="display:none;">クラインプランは長期的な視点で発展を続け、技術研究開発、グローバル展開、人材育成体制の構築に継続的に投資し、持続可能な成長プラットフォームを構築し、従業員に明確な成長道筋と広い発展の場を提供しています。</p>
+            </div>
+        </div>
+        <div class="career-section">
+            <h3 data-lang-cn>团队环境</h3>
+            <h3 data-lang-en style="display:none;">Team Environment</h3>
+            <h3 data-lang-ja style="display:none;">チーム環境</h3>
+            
+            <div class="career-content">
+                <p data-lang-cn>开放、平等、尊重、创新的团队氛围，鼓励沟通协作与自我突破，每个人都能在这里发挥价值、收获成长。</p>
+                <p data-lang-en style="display:none;">Open, equal, respectful and innovative environment. We encourage communication, collaboration and breakthroughs.</p>
+                <p data-lang-ja style="display:none;">オープンで平等、尊重と革新を重視するチーム環境で、コミュニケーションとコラボレーション、そして自己突破を奨励しています。誰もがここで価値を発揮し、成長を遂げることができます。</p>
+            </div>
+        </div>
+        <div class="career-section">
+            <h3 data-lang-cn>工厂环境</h3>
+            <h3 data-lang-en style="display:none;">Factory Environment</h3>
+            <h3 data-lang-ja style="display:none;">工場環境</h3>
+            
+            <div class="career-content">
+                <p data-lang-cn>现代化智能工厂，标准化作业流程，安全舒适的生产环境，先进设备与人性化管理并行。</p>
+                <p data-lang-en style="display:none;">Modern intelligent factory, standardized process, safe & comfortable environment, advanced equipment and humanized management.</p>
+                <p data-lang-ja style="display:none;">最新のスマート工場で、標準化された作業プロセス、安全で快適な生産環境、先進的な設備と人間味のあるマネジメントが両立しています。</p>
+            </div>
+        </div>
+        <div class="career-section">
+            <h3 data-lang-cn>职位空缺</h3>
+            <h3 data-lang-en style="display:none;">Open Positions</h3>
+            <h3 data-lang-ja style="display:none;">募集職種</h3>
+            
+            <div class="career-content">
+                <p data-lang-cn>我们正在招募以下职位的优秀人才，欢迎投递简历，加入克莱因计划，共赴未来。</p>
+                <p data-lang-en style="display:none;">We are recruiting excellent talents for the following positions. Join us and build the future together.</p>
+                <p data-lang-ja style="display:none;">以下の職種で優秀な人材を募集しています。ぜひ履歴書をご応募いただき、クラインプランで未来を共に築きましょう。</p>
+                
+                <div class="position-list" data-lang-cn>
+                    <div class="position-item">酒店业执行官</div>
+                    <div class="position-item">空气动力学专家</div>
+                    <div class="position-item">模拟工程师</div>
+                    <div class="position-item">机械设计工程</div>
+                    <div class="position-item">全栈开发工程师</div>
+                    <div class="position-item">UI/UX设计师</div>
+                    <div class="position-item">电竞车手</div>
+                    <div class="position-item">电竞车队工程师</div>
+                    <div class="position-item">品牌赞助经理</div>
+                    <div class="position-item">产品经理</div>
+                    <div class="position-item">工厂生产主管</div>
+                    <div class="position-item">客户对接经理</div>
+                    <div class="position-item">供应链专员</div>
+                    <div class="position-item">人力资源专员</div>
+                    <div class="position-item">财务会计</div>
+                    <div class="position-item">国际业务专员</div>
+                    <div class="position-item">法务专员</div>
+                </div>
+                
+                <div class="position-list" data-lang-en style="display:none;">
+                    <div class="position-item">Hospitality Executive</div>
+                    <div class="position-item">Aerodynamics Specialist</div>
+                    <div class="position-item">Simulation Engineer</div>
+                    <div class="position-item">Mechanical Design Engineer</div>
+                    <div class="position-item">Full Stack Developer</div>
+                    <div class="position-item">UI/UX Designer</div>
+                    <div class="position-item">Esports Driver</div>
+                    <div class="position-item">Esports Team Engineer</div>
+                    <div class="position-item">Brand Sponsorship Manager</div>
+                    <div class="position-item">Product Manager</div>
+                    <div class="position-item">Factory Production Supervisor</div>
+                    <div class="position-item">Client Relations Manager</div>
+                    <div class="position-item">Supply Chain Specialist</div>
+                    <div class="position-item">HR Specialist</div>
+                    <div class="position-item">Financial Accountant</div>
+                    <div class="position-item">International Business Specialist</div>
+                    <div class="position-item">Legal Specialist</div>
+                </div>
+                
+                <div class="position-list" data-lang-ja style="display:none;">
+                    <div class="position-item">ホスピタリティエグゼクティブ</div>
+                    <div class="position-item">空力スペシャリスト</div>
+                    <div class="position-item">シミュレーションエンジニア</div>
+                    <div class="position-item">機械設計エンジニア</div>
+                    <div class="position-item">フルスタック開発エンジニア</div>
+                    <div class="position-item">UI/UXデザイナー</div>
+                    <div class="position-item">eスポーツドライバー</div>
+                    <div class="position-item">eスポーツチームエンジニア</div>
+                    <div class="position-item">ブランドスポンサーシップマネージャー</div>
+                    <div class="position-item">プロダクトマネージャー</div>
+                    <div class="position-item">工場生産責任者</div>
+                    <div class="position-item">クライアントリレーションズマネージャー</div>
+                    <div class="position-item">サプライチェーンスペシャリスト</div>
+                    <div class="position-item">人事スペシャリスト</div>
+                    <div class="position-item">財務会計</div>
+                    <div class="position-item">国際事業スペシャリスト</div>
+                    <div class="position-item">法務スペシャリスト</div>
+                </div>
+                
+                <br>
+                <p>📩 简历投递：2265736302@qq.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // 完整的JS代码，支持三语言切换（中文→英语→日语循环）
+    let currentLang = 'cn'; // 默认中文
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        // 修复：汉堡菜单点击事件
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+        
+        // 优化：点击导航链接后自动关闭菜单（移动端）
+        const navAnchors = navLinks.querySelectorAll('a[href^="#"]');
+        navAnchors.forEach(anchor => {
+            anchor.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    });
+    
+    // 三语言切换函数（中文→英语→日语循环）
+    function toggleLang() {
+        // 语言循环：cn → en → ja → cn
+        if (currentLang === 'cn') {
+            currentLang = 'en';
+        } else if (currentLang === 'en') {
+            currentLang = 'ja';
+        } else {
+            currentLang = 'cn';
         }
-        function hideTeamModal() {
-            document.getElementById('teamModalMask').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        
+        // 更新HTML语言属性
+        const langMap = {
+            'cn': 'zh-CN',
+            'en': 'en',
+            'ja': 'ja'
+        };
+        document.documentElement.lang = langMap[currentLang];
+        
+        // 更新语言按钮文本
+        const btnTextMap = {
+            'cn': '中文',
+            'en': 'English',
+            'ja': '日本語'
+        };
+        document.getElementById('langBtn').innerText = btnTextMap[currentLang];
+        
+        // 隐藏所有语言元素
+        document.querySelectorAll('[data-lang-cn]').forEach(el => {
+            el.style.display = 'none';
+        });
+        document.querySelectorAll('[data-lang-en]').forEach(el => {
+            el.style.display = 'none';
+        });
+        document.querySelectorAll('[data-lang-ja]').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // 显示当前语言元素
+        document.querySelectorAll('[data-lang-' + currentLang + ']').forEach(el => {
+            el.style.display = '';
+        });
+    }
+    
+    // 团队弹窗
+    function showTeamModal() {
+        document.getElementById('teamModalMask').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function hideTeamModal() {
+        document.getElementById('teamModalMask').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    // 职业生涯弹窗
+    function showCareerModal() {
+        document.getElementById('careerModalMask').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function hideCareerModal() {
+        document.getElementById('careerModalMask').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    // ESC键关闭所有弹窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hideTeamModal();
+            hideCareerModal();
         }
-        document.onkeydown = function(e) {
-            if (e.keyCode === 27) {
-                hideTeamModal();
-            }
-        }
-    </script>
+    });
+    
+    // 点击遮罩关闭弹窗
+    document.getElementById('teamModalMask').addEventListener('click', hideTeamModal);
+    document.getElementById('careerModalMask').addEventListener('click', hideCareerModal);
+</script>
 </body>
 </html>
